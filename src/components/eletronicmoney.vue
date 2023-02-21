@@ -66,8 +66,30 @@
 
     <div class="text-lg font-bold mb-2">Valor total: R$ {{ total }}</div>
     <div class="text-lg font-bold mb-2">
-      Numero de hamburgers: {{ hamburgers }} =
+      Numero de hamburgers no evento: {{ hamburgers }}
     </div>
+    <div class="mb-4">
+      <div class="flex items-center">
+        <button
+          class="px-2 py-1 border border-gray-400 rounded-l"
+          @click="decreasePre"
+        >
+          -
+        </button>
+        <div class="px-2 py-1 border border-gray-400 flex-1 text-center">
+          {{ pre }}
+        </div>
+        <button
+          class="px-2 py-1 border border-gray-400 rounded-r"
+          @click="increasePre"
+        >
+          +
+        </button>
+      </div>
+    </div>
+    <label class="block text-gray-900 font-bold mb-2">
+      {{ pre }} Hamburgers (VENDIDOS) equivalente a R$: {{ totalv }}
+    </label>
   </div>
 </template>
 
@@ -78,6 +100,7 @@ export default {
       cocaCola: 0,
       beer: 0,
       hamburgers: 0,
+      pre: 0,
     };
   },
   computed: {
@@ -86,6 +109,12 @@ export default {
     },
     hamburgers() {
       return this.hamburgers;
+    },
+    pre() {
+      return this.pre;
+    },
+    totalv() {
+      return this.pre * 30;
     },
   },
   methods: {
@@ -111,6 +140,14 @@ export default {
     decreaseBeer() {
       if (this.beer > 0) {
         this.beer--;
+      }
+    },
+    increasePre() {
+      this.pre++;
+    },
+    decreasePre() {
+      if (this.pre > 0) {
+        this.pre--;
       }
     },
   },
