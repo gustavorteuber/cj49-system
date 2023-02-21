@@ -9,7 +9,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "firebase": "^9.17.1",
+    "geocoder": "^0.2.3",
     "leaflet": "^1.9.3",
+    "leaflet-geosearch": "^3.7.0",
     "vue": "^3.2.36",
     "vue3-leaflet": "^1.0.43"
   },

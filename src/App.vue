@@ -1,17 +1,15 @@
 <template>
   <div>
-    <SearchBox />
-    <Map :latitude="37.7749" :longitude="-122.4194" />
+    <meu-caixa-eletronico></meu-caixa-eletronico>
   </div>
 </template>
 
 <script>
-import Map from "./components/Map.vue";
-import SearchBox from "./components/SearchBox.vue";
+import MeuCaixaEletronico from "./components/eletronicmoney.vue";
+
 export default {
   components: {
-    Map,
-    SearchBox,
+    MeuCaixaEletronico,
   },
 };
 </script>
