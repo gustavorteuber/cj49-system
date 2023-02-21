@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import MeuCaixaEletronico from "./components/pagamentos.vue";
+import MeuCaixaEletronico from "./components/passwordSystem.vue";
 
 export default {
   components: {
