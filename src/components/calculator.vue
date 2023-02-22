@@ -1,5 +1,4 @@
 <template>
-  <div class="bg-gray-100 p-4">
     <h2 class="text-xl block text-gray-700 font-bold mb-4">
       Calculadora de Bebidas:
     </h2>
@@ -33,7 +32,6 @@
     >
       Limpar
     </button>
-  </div>
 </template>
 
 <script>

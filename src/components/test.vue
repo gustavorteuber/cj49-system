@@ -1,10 +1,10 @@
 <template>
-  <div class="leading-loose">
+<div class="leading-loose">
     <form class="max-w-xl m-4 p-10 bg-white rounded shadow-xl">
       <p class="text-gray-800 font-medium text-xl text-center">Controle de Itens do Caixa</p>
-  <div class="p-2 mt-2">
-    <label class="block text-gray-700 font-bold mb-2">Coca-Cola (R$5)</label>
-    <div class="flex items-center">
+      <div class="p-2 mt-2">
+        <label class="block text-sm text-gray-00" for="cus_name">Coca-Cola</label>
+        <div class="flex items-center">
       <button
         class="px-2 py-1 border border-gray-400 rounded-l"
         @click="decreaseCocaCola"
@@ -24,12 +24,10 @@
         +
       </button>
     </div>
-  </div>
-
-  <div class="mb-4">
-    <label class="block text-gray-700 font-bold mb-2">Cerveja (R$12)</label>
-    <div class="flex items-center">
-      <button
+      </div>
+      <div class="p-2 mt-1">
+        <label class="block text-sm text-gray-00" for="cus_name">Cerveja</label>
+        <button
         class="px-2 py-1 border border-gray-400 rounded-l"
         @click="decreaseBeer"
       >
@@ -48,14 +46,10 @@
       >
         +
       </button>
-    </div>
-  </div>
-  <div class="mb-4">
-    <label class="block text-gray-700 font-bold mb-2"
-      >Hamburgers (QUANT.)</label
-    >
-    <div class="flex items-center">
-      <button
+      </div>
+      <div class="p-2 mt-1">
+        <label class="block text-sm text-gray-00" for="cus_name">Hamburguers</label>
+        <button
         class="px-2 py-1 border border-gray-400 rounded-l"
         @click="decreaseHam"
       >
@@ -73,46 +67,9 @@
       >
         +
       </button>
-    </div>
-  </div>
-
-  <div class="text-lg font-bold mb-2">Valor total: R$ {{ total }}</div>
-  <div class="text-lg font-bold mb-2">
-    Numero de hamburgers no evento: {{ hamburgers }}
-  </div>
-  <div class="mb-4">
-    <div class="flex items-center">
-      <button
-        class="px-2 py-1 border border-gray-400 rounded-l"
-        @click="decreasePre"
-      >
-        -
-      </button>
-      <input
-        type="number"
-        class="px-2 py-1 border border-gray-400 text-center flex-1"
-        v-model="pre"
-        @input="updatepre"
-      />
-      <button
-        class="px-2 py-1 border border-gray-400 rounded-r"
-        @click="increasePre"
-      >
-        +
-      </button>
-    </div>
-  </div>
-  
-  <label class="block text-gray-900 font-bold mb-2">
-    {{ pre }} Hamburgers (VENDIDOS) equivalente a R$: {{ totalVendido }}
-  </label>
-  <button
-    class="bg-green-500 text-white px-4 py-2 rounded-md"
-    @click="exportToExcel"
-  >
-    Exportar para Excel
-  </button>
-</form>
+      </div>
+      <div class="text-lg font-bold mb-2">Valor total: R$ {{ total }}</div>
+    </form>
   </div>
 </template>
 
