@@ -111,6 +111,13 @@
   >
     Exportar para Excel
   </button>
+  <div class="p-1"></div>
+  <button
+    class="border-solid border-2 border-rose-900 bg-gray-100 text-rose-900 px-4 py-2 rounded-md"
+    @click="clearConfirmation"
+  >
+    Limpar dados
+  </button>
 </template>
 
 <script>
@@ -151,6 +158,18 @@ export default {
     },
   },
   methods: {
+    clearLocalStorage() {
+      window.localStorage.clear();
+      this.pre = 0;
+      this.beer = 0;
+      this.hamburgers = 0;
+      this.cocaCola = 0;
+    },
+    clearConfirmation() {
+      if (window.confirm("Tem certeza que deseja apagar todos os dados?")) {
+        this.clearLocalStorage();
+      }
+    },
     exportConfirmation() {
       if (
         window.confirm(
