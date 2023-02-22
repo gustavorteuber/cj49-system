@@ -1,8 +1,8 @@
 <template>
-  <div class="leading-loose">
-    <form class="max-w-xl m-4 p-10 bg-white rounded shadow-xl">
-      <p class="text-gray-800 font-medium text-xl text-center">Controle de Itens do Caixa</p>
-  <div class="p-2 mt-2">
+  <h1 class="text-xl block text-gray-700 font-bold mb-4">
+    Controle de items do caixa:
+  </h1>
+  <div class="mb-4">
     <label class="block text-gray-700 font-bold mb-2">Coca-Cola (R$5)</label>
     <div class="flex items-center">
       <button
@@ -102,23 +102,19 @@
       </button>
     </div>
   </div>
-  
   <label class="block text-gray-900 font-bold mb-2">
     {{ pre }} Hamburgers (VENDIDOS) equivalente a R$: {{ totalVendido }}
   </label>
   <button
-    class="bg-green-500 text-white px-4 py-2 rounded-md"
-    @click="exportToExcel"
+    class="border-solid border-2 border-emerald-500 bg-gray-100 text-emerald-500 px-4 py-2 rounded-md"
+    @click="exportConfirmation"
   >
     Exportar para Excel
   </button>
-</form>
-  </div>
 </template>
 
 <script>
 import * as XLSX from "xlsx";
-
 export default {
   data() {
     return {
@@ -155,13 +151,15 @@ export default {
     },
   },
   methods: {
-    // clearLocalStorage() {
-    //   window.localStorage.clear();
-    //   this.pre = 0;
-    //   this.beer = 0;
-    //   this.hamburgers = 0;
-    //   this.cocaCola = 0;
-    // },
+    exportConfirmation() {
+      if (
+        window.confirm(
+          "Tem certeza que deseja exportar a planilha de levantamento?"
+        )
+      ) {
+        this.exportToExcel();
+      }
+    },
     increaseCocaCola() {
       this.cocaCola++;
       window.localStorage.setItem("cocaCola", this.cocaCola);
@@ -238,10 +236,8 @@ export default {
           Final: this.final,
         },
       ]);
-
       const workbook = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(workbook, worksheet, "Produtos");
-
       XLSX.writeFile(workbook, "produtos.xlsx");
     },
   },

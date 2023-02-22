@@ -1,37 +1,37 @@
 <template>
-    <h2 class="text-xl block text-gray-700 font-bold mb-4">
-      Calculadora de Bebidas:
-    </h2>
-    <div class="flex items-center mb-2">
-      <label for="cervejas" class="mr-2">Cervejas:</label>
-      <input
-        id="cervejas"
-        type="number"
-        v-model="beer"
-        @change="total"
-        class="p-2 border border-gray-300 rounded-md w-16"
-      />
-    </div>
-    <div class="flex items-center mb-2">
-      <label for="cocacolas" class="mr-2">Coca-Colas:</label>
-      <input
-        id="cocacolas"
-        type="number"
-        v-model="cocaCola"
-        @change="total"
-        class="p-2 border border-gray-300 rounded-md w-16"
-      />
-    </div>
-    <div class="flex items-center mb-4">
-      <label for="total" class="mr-2">Total:</label>
-      <span id="total" class="font-medium">R$: {{ total }},00</span>
-    </div>
-    <button
-      @click="limpar"
-      class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md"
-    >
-      Limpar
-    </button>
+  <h2 class="text-xl block text-gray-700 font-bold mb-4">
+    Calculadora de Bebidas:
+  </h2>
+  <div class="flex items-center mb-2">
+    <label for="cervejas" class="mr-2">Cervejas:</label>
+    <input
+      id="cervejas"
+      type="number"
+      v-model="beer"
+      @change="total"
+      class="p-2 border border-gray-300 rounded-md w-16"
+    />
+  </div>
+  <div class="flex items-center mb-2">
+    <label for="cocacolas" class="mr-2">Coca-Colas:</label>
+    <input
+      id="cocacolas"
+      type="number"
+      v-model="cocaCola"
+      @change="total"
+      class="p-2 border border-gray-300 rounded-md w-16"
+    />
+  </div>
+  <div class="flex items-center mb-4">
+    <label for="total" class="mr-2">Total:</label>
+    <span id="total" class="font-medium">R$: {{ total }},00</span>
+  </div>
+  <button
+    @click="limpar"
+    class="border-solid border-2 border-rose-900 bg-gray-100 text-rose-900 px-4 py-2 rounded-md"
+  >
+    Limpar
+  </button>
 </template>
 
 <script>
