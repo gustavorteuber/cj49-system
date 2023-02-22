@@ -1,7 +1,7 @@
 <template>
   <div
     class="p-1 justify-center flex flex-col md:flex-row"
-    style="margin: 20px"
+    style="margin: 80px"
   >
     <div class="bg-gray-100 md:w-1/2 p-4 border rounded-md shadow-md">
       <MeuCaixaEletronico />

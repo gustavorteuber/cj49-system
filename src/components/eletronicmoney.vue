@@ -1,5 +1,5 @@
 <template>
-  <h1 class="text-xl block text-gray-700 font-bold mb-4">
+  <h1 class="text-center text-xl block text-gray-700 font-bold mb-4">
     Controle de items do caixa:
   </h1>
   <div class="mb-4">
@@ -106,14 +106,14 @@
     {{ pre }} Hamburgers (VENDIDOS) equivalente a R$: {{ totalVendido }}
   </label>
   <button
-    class="border-solid border-2 border-emerald-500 bg-gray-100 text-emerald-500 px-4 py-2 rounded-md"
+    class="bg-emerald-500 border-solid border-2 border-emerald-500 text-white px-4 py-2 rounded-md hover:bg-emerald-600"
     @click="exportConfirmation"
   >
     Exportar para Excel
   </button>
   <div class="p-1"></div>
   <button
-    class="border-solid border-2 border-rose-900 bg-gray-100 text-rose-900 px-4 py-2 rounded-md"
+    class="bg-rose-800 border-solid border-2 border-rose-900 text-white px-4 py-2 rounded-md hover:bg-rose-900"
     @click="clearConfirmation"
   >
     Limpar dados
