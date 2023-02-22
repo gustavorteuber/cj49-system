@@ -1,118 +1,116 @@
 <template>
-  <div class="bg-gray-100 p-4 rounded">
-    <h1 class="text-xl block text-gray-700 font-bold mb-4">
-      Controle de items do caixa:
-    </h1>
-    <div class="mb-4">
-      <label class="block text-gray-700 font-bold mb-2">Coca-Cola (R$5)</label>
-      <div class="flex items-center">
-        <button
-          class="px-2 py-1 border border-gray-400 rounded-l"
-          @click="decreaseCocaCola"
-        >
-          -
-        </button>
-        <input
-          type="number"
-          class="px-2 py-1 border border-gray-400 text-center flex-1"
-          v-model="cocaCola"
-          @input="updateCoca"
-        />
-        <button
-          class="px-2 py-1 border border-gray-400 rounded-r"
-          @click="increaseCocaCola"
-        >
-          +
-        </button>
-      </div>
-    </div>
-
-    <div class="mb-4">
-      <label class="block text-gray-700 font-bold mb-2">Cerveja (R$12)</label>
-      <div class="flex items-center">
-        <button
-          class="px-2 py-1 border border-gray-400 rounded-l"
-          @click="decreaseBeer"
-        >
-          -
-        </button>
-
-        <input
-          type="number"
-          class="px-2 py-1 border border-gray-400 text-center flex-1"
-          v-model="beer"
-          @input="updateBeer"
-        />
-        <button
-          class="px-2 py-1 border border-gray-400 rounded-r"
-          @click="increaseBeer"
-        >
-          +
-        </button>
-      </div>
-    </div>
-    <div class="mb-4">
-      <label class="block text-gray-700 font-bold mb-2"
-        >Hamburgers (QUANT.)</label
+  <h1 class="text-xl block text-gray-700 font-bold mb-4">
+    Controle de items do caixa:
+  </h1>
+  <div class="mb-4">
+    <label class="block text-gray-700 font-bold mb-2">Coca-Cola (R$5)</label>
+    <div class="flex items-center">
+      <button
+        class="px-2 py-1 border border-gray-400 rounded-l"
+        @click="decreaseCocaCola"
       >
-      <div class="flex items-center">
-        <button
-          class="px-2 py-1 border border-gray-400 rounded-l"
-          @click="decreaseHam"
-        >
-          -
-        </button>
-        <input
-          type="number"
-          class="px-2 py-1 border border-gray-400 text-center flex-1"
-          v-model="hamburgers"
-          @input="updateHam"
-        />
-        <button
-          class="px-2 py-1 border border-gray-400 rounded-r"
-          @click="increaseHam"
-        >
-          +
-        </button>
-      </div>
+        -
+      </button>
+      <input
+        type="number"
+        class="px-2 py-1 border border-gray-400 text-center flex-1"
+        v-model="cocaCola"
+        @input="updateCoca"
+      />
+      <button
+        class="px-2 py-1 border border-gray-400 rounded-r"
+        @click="increaseCocaCola"
+      >
+        +
+      </button>
     </div>
-
-    <div class="text-lg font-bold mb-2">Valor total: R$ {{ total }}</div>
-    <div class="text-lg font-bold mb-2">
-      Numero de hamburgers no evento: {{ hamburgers }}
-    </div>
-    <div class="mb-4">
-      <div class="flex items-center">
-        <button
-          class="px-2 py-1 border border-gray-400 rounded-l"
-          @click="decreasePre"
-        >
-          -
-        </button>
-        <input
-          type="number"
-          class="px-2 py-1 border border-gray-400 text-center flex-1"
-          v-model="pre"
-          @input="updatepre"
-        />
-        <button
-          class="px-2 py-1 border border-gray-400 rounded-r"
-          @click="increasePre"
-        >
-          +
-        </button>
-      </div>
-    </div>
-    <label class="block text-gray-900 font-bold mb-2">
-      {{ pre }} Hamburgers (VENDIDOS) equivalente a R$: {{ totalVendido }}
-    </label>
-    <button
-      class="bg-green-500 text-white px-4 py-2 rounded-md"
-      @click="exportToExcel"
-    >
-      Exportar para Excel
-    </button>
   </div>
+
+  <div class="mb-4">
+    <label class="block text-gray-700 font-bold mb-2">Cerveja (R$12)</label>
+    <div class="flex items-center">
+      <button
+        class="px-2 py-1 border border-gray-400 rounded-l"
+        @click="decreaseBeer"
+      >
+        -
+      </button>
+
+      <input
+        type="number"
+        class="px-2 py-1 border border-gray-400 text-center flex-1"
+        v-model="beer"
+        @input="updateBeer"
+      />
+      <button
+        class="px-2 py-1 border border-gray-400 rounded-r"
+        @click="increaseBeer"
+      >
+        +
+      </button>
+    </div>
+  </div>
+  <div class="mb-4">
+    <label class="block text-gray-700 font-bold mb-2"
+      >Hamburgers (QUANT.)</label
+    >
+    <div class="flex items-center">
+      <button
+        class="px-2 py-1 border border-gray-400 rounded-l"
+        @click="decreaseHam"
+      >
+        -
+      </button>
+      <input
+        type="number"
+        class="px-2 py-1 border border-gray-400 text-center flex-1"
+        v-model="hamburgers"
+        @input="updateHam"
+      />
+      <button
+        class="px-2 py-1 border border-gray-400 rounded-r"
+        @click="increaseHam"
+      >
+        +
+      </button>
+    </div>
+  </div>
+
+  <div class="text-lg font-bold mb-2">Valor total: R$ {{ total }}</div>
+  <div class="text-lg font-bold mb-2">
+    Numero de hamburgers no evento: {{ hamburgers }}
+  </div>
+  <div class="mb-4">
+    <div class="flex items-center">
+      <button
+        class="px-2 py-1 border border-gray-400 rounded-l"
+        @click="decreasePre"
+      >
+        -
+      </button>
+      <input
+        type="number"
+        class="px-2 py-1 border border-gray-400 text-center flex-1"
+        v-model="pre"
+        @input="updatepre"
+      />
+      <button
+        class="px-2 py-1 border border-gray-400 rounded-r"
+        @click="increasePre"
+      >
+        +
+      </button>
+    </div>
+  </div>
+  <label class="block text-gray-900 font-bold mb-2">
+    {{ pre }} Hamburgers (VENDIDOS) equivalente a R$: {{ totalVendido }}
+  </label>
+  <button
+    class="bg-green-500 text-white px-4 py-2 rounded-md"
+    @click="exportToExcel"
+  >
+    Exportar para Excel
+  </button>
 </template>
 
 <script>
@@ -125,6 +123,9 @@ export default {
       beer: 0,
       hamburgers: 0,
       pre: 0,
+      custoham: 0,
+      custococa: 0,
+      custocerva: 0,
     };
   },
   computed: {
@@ -139,6 +140,15 @@ export default {
     },
     totalVendido() {
       return this.pre * 30;
+    },
+    final() {
+      return (
+        this.total +
+        this.totalVendido -
+        this.custoham -
+        this.custococa -
+        this.custocerva
+      );
     },
   },
   methods: {
@@ -222,6 +232,7 @@ export default {
           Total: this.total,
           Prevenda: this.totalVendido,
           Hamburgerspegos: this.pre,
+          Final: this.final,
         },
       ]);
 
@@ -236,6 +247,7 @@ export default {
     this.beer = parseInt(window.localStorage.getItem("beer")) || 0;
     this.hamburgers = parseInt(window.localStorage.getItem("hamburgers")) || 0;
     this.pre = parseInt(window.localStorage.getItem("pre")) || 0;
+    this.final = parseInt(window.localStorage.getItem("final")) || 0;
   },
 };
 </script>
