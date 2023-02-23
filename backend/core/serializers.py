@@ -2,6 +2,7 @@ from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 from core.models import Usuario, Boletos
 
+
 class UsuarioSerializer(ModelSerializer):
     id = serializers.IntegerField(read_only=True, required=False)
 
@@ -38,7 +39,7 @@ class UsuarioSerializer(ModelSerializer):
 
 class UsuarioCreateSerializer(ModelSerializer):
     id = serializers.IntegerField(read_only=True, required=False)
-    password_confirmation = serializers.CharField(max_length=150, write_only=True)
+    # password_confirmation = serializers.CharField(max_length=150, write_only=True)
 
     class Meta:
         model = Usuario
@@ -64,18 +65,19 @@ class UsuarioCreateSerializer(ModelSerializer):
             raise serializers.ValidationError(
                 {"username": ("esse nome de usuario já está em uso")}
             )
-        if password != args.get("password_confirmation"):
-            raise serializers.ValidationError(
-                {"password": ("as senhas não são iguais")}
-            )
+        # if password != args.get("password_confirmation"):
+        #     raise serializers.ValidationError(
+        #         {"password": ("as senhas não são iguais")}
+        #     )
         return super().validate(args)
 
     def create(self, validated_data):
-        validated_data.pop("password_confirmation")
+        # validated_data.pop("password_confirmation")
         newUser = Usuario.objects.create_user(**validated_data)
         newUser.foto = None
         newUser.save()
         return newUser
+
 
 class BoletosSerializer(ModelSerializer):
     class Meta:

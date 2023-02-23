@@ -1,6 +1,21 @@
 <template>
   <div class="container mx-auto">
     <h1 class="text-2xl font-bold mb-4">Controle de Pagamentos</h1>
+
+    <!-- Adicione a lista de usuários abaixo -->
+    <div>
+      <h2>Usuários:</h2>
+      <ul>
+        <li
+          v-for="usuario in usuarios"
+          :key="usuario.id"
+          @click="usuarioSelecionado = usuario.nome"
+        >
+          {{ usuario.nome }}
+        </li>
+      </ul>
+    </div>
+
     <div class="grid grid-cols-4 gap-4">
       <div
         v-for="(status, index) in pagamentos"
@@ -94,7 +109,7 @@ export default {
     },
     buscarUsuarios() {
       axios
-        .get("http://localhost:8000/usuarios/")
+        .get("http://localhost:8000/usuario/")
         .then((response) => {
           this.usuarios = response.data;
         })
