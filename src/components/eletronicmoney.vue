@@ -259,7 +259,7 @@ export default {
           ["CERVEJA LIQUIDO", this.beer * 12],
           ["PRE-VENDA", this.totalVendido],
           ["BRUTO", this.total],
-          [("LIQUIDO", this.final)],
+          ["LIQUIDO", this.final],
         ],
         { origin: "A2" }
       );
