@@ -255,6 +255,10 @@ export default {
           Final: this.final,
         },
       ]);
+      worksheet["D2"].z = "R$0.00";
+      worksheet["E2"].z = "R$0.00";
+      worksheet["F2"].z = "R$0.00";
+      worksheet["G2"].z = "R$0.00";
       const workbook = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(workbook, worksheet, "Produtos");
       XLSX.writeFile(workbook, "produtos.xlsx");
