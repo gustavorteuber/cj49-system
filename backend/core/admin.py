@@ -9,8 +9,8 @@ admin.site.register(Usuario)
 
 class UsuarioAdmin(UserAdmin):
     fieldsets = (
-        (None, {"fields": ("username", "password",'password_confirmation')}),
-        (_("Personal info"), {"fields": ("first_name", "last_name", "email", "foto")}),
+        (None, {"fields": ("username", "password")}),
+        (_("Personal info"), {"fields": ("first_name", "last_name", "email")}),
         (
             _("Permissions"),
             {
@@ -18,7 +18,6 @@ class UsuarioAdmin(UserAdmin):
                     "is_active",
                     "is_staff",
                     "is_superuser",
-                    "groups",
                     "user_permissions",
                 ),
             },
