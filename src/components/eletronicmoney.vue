@@ -220,28 +220,16 @@ export default {
       }
     },
     updatepre() {
-      if (this.pre > 0) {
-        this.pre--;
-        window.localStorage.setItem("pre", this.pre);
-      }
+      window.localStorage.setItem("pre", this.pre);
     },
     updateBeer() {
-      if (this.beer > 0) {
-        this.beer--;
-        window.localStorage.setItem("beer", this.beer);
-      }
+      window.localStorage.setItem("beer", this.beer);
     },
     updateHam() {
-      if (this.hamburgers > 0) {
-        this.hamburgers--;
-        window.localStorage.setItem("hamburgers", this.hamburgers);
-      }
+      window.localStorage.setItem("hamburgers", this.hamburgers);
     },
     updateCoca() {
-      if (this.cocaCola > 0) {
-        this.cocaCola--;
-        window.localStorage.setItem("cocaCola", this.cocaCola);
-      }
+      window.localStorage.setItem("cocaCola", this.cocaCola);
     },
     exportToExcel() {
       const worksheet = XLSX.utils.json_to_sheet([
