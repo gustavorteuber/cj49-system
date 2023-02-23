@@ -9,7 +9,8 @@ class Usuario(AbstractUser):
     password = models.CharField(max_length=100)
     email = models.EmailField(max_length=100, unique=True)
 
+
 class Boletos(models.Model):
     titular = models.ForeignKey(Usuario, on_delete=models.PROTECT)
     pago = models.BooleanField(default=False)
-    data = models.DateTimeField(default=timezone.now)
+    data = models.DateTimeField(auto_now=True)

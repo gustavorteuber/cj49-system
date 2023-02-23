@@ -18,6 +18,7 @@
     "leaflet": "^1.9.3",
     "leaflet-geosearch": "^3.7.0",
     "pandas": "^0.0.3",
+    "pinia": "^2.0.32",
     "vue": "^3.2.36",
     "vue3-leaflet": "^1.0.43",
     "xlsx": "^0.18.5",

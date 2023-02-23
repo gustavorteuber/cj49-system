@@ -48,6 +48,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
@@ -67,6 +69,8 @@ export default {
       ],
       pagamentos: Array(12).fill("Em aberto"),
       selecionados: [],
+      usuarios: [],
+      usuarioSelecionado: null,
     };
   },
   methods: {
@@ -88,6 +92,45 @@ export default {
       }
       this.selecionados = [];
     },
+    buscarUsuarios() {
+      axios
+        .get("http://localhost:8000/usuarios/")
+        .then((response) => {
+          this.usuarios = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    buscarPagamentos() {
+      axios
+        .get(
+          `http://localhost:8000/boletos/?titular=${this.usuarioSelecionado}`
+        )
+        .then((response) => {
+          const pagamentos = Array(12).fill("Em aberto");
+          response.data.forEach((pagamento) => {
+            const mes = new Date(pagamento.vencimento).getMonth();
+            pagamentos[mes] = pagamento.status;
+          });
+          this.pagamentos = pagamentos;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
+  watch: {
+    usuarioSelecionado() {
+      if (this.usuarioSelecionado) {
+        this.buscarPagamentos();
+      } else {
+        this.pagamentos = Array(12).fill("Em aberto");
+      }
+    },
+  },
+  mounted() {
+    this.buscarUsuarios();
   },
 };
 </script>

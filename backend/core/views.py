@@ -1,4 +1,5 @@
 from rest_framework.permissions import AllowAny
+from rest_framework import generics
 from rest_framework.viewsets import ModelViewSet
 from core.models import Usuario, Boletos
 from core.serializers import (
@@ -35,13 +36,12 @@ class UsuarioViewSet(ModelViewSet):
             return UsuarioCreateSerializer
         return UsuarioSerializer
 
-class BoletosViewSet(ModelViewSet):
+
+class BoletosList(generics.ListCreateAPIView):
     queryset = Boletos.objects.all()
     serializer_class = BoletosSerializer
-    permission_classes = [AllowAny]
 
-    def get_serializer_class(self):
-        if self.action in ["create"]:
-            return BoletosSerializer
-        return BoletosSerializer
 
+class BoletosDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Boletos.objects.all()
+    serializer_class = BoletosSerializer

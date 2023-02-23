@@ -8,17 +8,17 @@ from rest_framework_simplejwt.views import TokenRefreshView
 
 from core.views import (
     UsuarioViewSet,
-    MyTokenObtainPairView,
-    BoletosViewSet,
+    MyTokenObtainPairView, BoletosList, BoletosDetail
 )
 
 router = DefaultRouter()
 router.register(r'usuario', UsuarioViewSet)
-router.register(r'boletos', BoletosViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
+    path('boletos/', BoletosList.as_view(), name='boletos-list'),
+    path('boletos/<int:pk>/', BoletosDetail.as_view(), name='boletos-detail'),
     path("token/", MyTokenObtainPairView.as_view(), name="token_obtain_pair"),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
