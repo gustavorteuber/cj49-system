@@ -138,6 +138,9 @@ export default {
     total() {
       return this.cocaCola * 5 + this.beer * 12;
     },
+    bruto() {
+      return this.total + this.pre;
+    },
     totalHamburgers() {
       return this.hamburgers;
     },
@@ -241,28 +244,46 @@ export default {
         { name: "CERVEJA", value: this.beer },
         { name: "HAMBURGERS NO TOTAL", value: this.totalVendido },
         { name: "HAMBURGERS NO EVENTO", value: this.pre },
-        { name: "BRUTO", value: this.total },
+        // { name: "BRUTO", value: this.bruto },
         { name: "LIQUIDO", value: this.final },
       ];
 
-      const worksheet = XLSX.utils.aoa_to_sheet([["DADOS:", "VALORES:"]]);
+      const worksheet = XLSX.utils.aoa_to_sheet([
+        ["LEVANTAMENTO CJ49"], // Add the title as the first row
+        ["DADOS:", "VALORES:"],
+      ]);
+
+      const titleStyle = { font: { size: 18, bold: true } };
+      const titleRow = XLSX.utils.sheet_add_aoa(
+        worksheet,
+        [["LEVANTAMENTO CJ49"]],
+        { origin: "A1" }
+      );
+
+      for (let col = 0; col < titleRow.length; col++) {
+        worksheet[XLSX.utils.encode_cell({ c: col, r: 0 })].s = titleStyle;
+      }
 
       XLSX.utils.sheet_add_aoa(
         worksheet,
         [
-          ["HAMBURGERS NO TOTAL", this.pre],
-          ["HAMBURGERS QUE SAIRAM", this.hamburgers],
-          ["HAMBURGERS QUE SOBRARAM", this.sobra],
-          ["REFRIGERANTE BRUTO", this.cocaCola * 5],
-          ["REFRIGERANTE LIQUIDO", this.cocaCola * 5],
-          ["CERVEJA BRUTO", this.beer * 12],
-          ["CERVEJA LIQUIDO", this.beer * 12],
-          ["PRE-VENDA", this.totalVendido],
-          ["BRUTO", this.total],
-          ["LIQUIDO", this.final],
+          ["HAMBURGERS NO TOTAL", this.pre + " UN."],
+          ["HAMBURGERS QUE SAIRAM", this.hamburgers + " UN."],
+          ["HAMBURGERS QUE SOBRARAM", this.sobra + " UN."],
+          ["REFRIGERANTE QUANT.", this.cocaCola + " UN."],
+          ["CERVEJA QUANT.", this.beer + " UN."],
+          ["REFRIGERANTE BRUTO", "R$" + (this.cocaCola * 5).toFixed(2)],
+          ["REFRIGERANTE LIQUIDO", "R$" + (this.cocaCola * 5).toFixed(2)],
+          ["CERVEJA BRUTO", "R$" + (this.beer * 12).toFixed(2)],
+          ["CERVEJA LIQUIDO", "R$" + (this.beer * 12).toFixed(2)],
+          ["PRE-VENDA", "R$" + this.totalVendido.toFixed(2)],
+          // ["BRUTO", "R$" + this.total.toFixed(2)],
+          ["LIQUIDO", "R$" + this.final.toFixed(2)],
         ],
         { origin: "A2" }
       );
+
+      worksheet["!cols"] = [{ width: 20 }, { width: 15 }, { width: 15 }];
 
       const workbook = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(workbook, worksheet, "Produtos");
