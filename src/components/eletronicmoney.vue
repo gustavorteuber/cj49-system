@@ -261,7 +261,7 @@ export default {
           ["BRUTO", this.total],
           [("LIQUIDO", this.final)],
         ],
-        { origin: "A4" }
+        { origin: "A2" }
       );
 
       const workbook = XLSX.utils.book_new();
