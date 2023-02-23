@@ -1,9 +1,10 @@
 from rest_framework.permissions import AllowAny
 from rest_framework.viewsets import ModelViewSet
-from core.models import Usuario
+from core.models import Usuario, Boletos
 from core.serializers import (
     UsuarioSerializer,
     UsuarioCreateSerializer,
+    BoletosSerializer,
 )
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -33,3 +34,14 @@ class UsuarioViewSet(ModelViewSet):
         if self.action in ["create"]:
             return UsuarioCreateSerializer
         return UsuarioSerializer
+
+class BoletosViewSet(ModelViewSet):
+    queryset = Boletos.objects.all()
+    serializer_class = BoletosSerializer
+    permission_classes = [AllowAny]
+
+    def get_serializer_class(self):
+        if self.action in ["create"]:
+            return BoletosSerializer
+        return BoletosSerializer
+

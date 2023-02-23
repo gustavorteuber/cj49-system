@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
-from core.models import Usuario
+from core.models import Usuario, Boletos
 
 class UsuarioSerializer(ModelSerializer):
     id = serializers.IntegerField(read_only=True, required=False)
@@ -76,3 +76,8 @@ class UsuarioCreateSerializer(ModelSerializer):
         newUser.foto = None
         newUser.save()
         return newUser
+
+class BoletosSerializer(ModelSerializer):
+    class Meta:
+        model = Boletos
+        fields = "__all__"
