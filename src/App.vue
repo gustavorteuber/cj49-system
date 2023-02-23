@@ -1,14 +1,11 @@
 <template>
-  <div
-    class="p-1 justify-center flex flex-col md:flex-row"
-    style="margin: 80px"
-  >
-    <div class="bg-gray-100 md:w-1/2 p-4 border rounded-md shadow-md">
+  <div class="justify-center flex flex-col md:flex-row" style="margin: 20px">
+    <div class="p-1 bg-gray-100 md:w-1/2 border rounded-md shadow-md">
       <MeuCaixaEletronico />
     </div>
     <div class="m-2"></div>
     <div
-      class="bg-gray-100 md:w-1/2 w-full p-4 border rounded-md shadow-md order-2 md:order-1"
+      class="bg-gray-100 md:w-1/2 w-full p-1 border rounded-md shadow-md order-2 md:order-1"
     >
       <calculator />
     </div>
