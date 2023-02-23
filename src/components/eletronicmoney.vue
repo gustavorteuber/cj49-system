@@ -156,6 +156,9 @@ export default {
         this.custocerva
       );
     },
+    sobra() {
+      return this.pre - this.hamburgers;
+    },
   },
   methods: {
     clearLocalStorage() {
@@ -232,23 +235,38 @@ export default {
       window.localStorage.setItem("cocaCola", this.cocaCola);
     },
     exportToExcel() {
-      const worksheet = XLSX.utils.json_to_sheet([
-        {
-          Hamburgers: this.totalHamburgers,
-          "Coca-Cola": this.cocaCola,
-          Cerveja: this.beer,
-          Total: this.total,
-          Prevenda: this.totalVendido,
-          Hamburgerspegos: this.pre,
-          Final: this.final,
-        },
-      ]);
-      worksheet["D2"].z = "R$0.00";
-      worksheet["E2"].z = "R$0.00";
-      worksheet["F2"].z = "R$0.00";
-      worksheet["G2"].z = "R$0.00";
+      const data = [
+        { name: "HAMBURGERS", value: this.hamburgers },
+        { name: "REFRIGERANTE", value: this.cocaCola },
+        { name: "CERVEJA", value: this.beer },
+        { name: "HAMBURGERS NO TOTAL", value: this.totalVendido },
+        { name: "HAMBURGERS NO EVENTO", value: this.pre },
+        { name: "BRUTO", value: this.total },
+        { name: "LIQUIDO", value: this.final },
+      ];
+
+      const worksheet = XLSX.utils.aoa_to_sheet([["DADOS:", "VALORES:"]]);
+
+      XLSX.utils.sheet_add_aoa(
+        worksheet,
+        [
+          ["HAMBURGERS NO TOTAL", this.pre],
+          ["HAMBURGERS QUE SAIRAM", this.hamburgers],
+          ["HAMBURGERS QUE SOBRARAM", this.sobra],
+          ["REFRIGERANTE BRUTO", this.cocaCola * 5],
+          ["REFRIGERANTE LIQUIDO", this.cocaCola * 5],
+          ["CERVEJA BRUTO", this.beer * 12],
+          ["CERVEJA LIQUIDO", this.beer * 12],
+          ["PRE-VENDA", this.totalVendido],
+          ["BRUTO", this.total],
+          [("LIQUIDO", this.final)],
+        ],
+        { origin: "A4" }
+      );
+
       const workbook = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(workbook, worksheet, "Produtos");
+
       XLSX.writeFile(workbook, "produtos.xlsx");
     },
   },
