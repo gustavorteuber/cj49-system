@@ -9,6 +9,7 @@ export const useAuthStore = defineStore({
     email: "",
     first_name: "",
     is_superuser: "",
+    is_totem: "",
   }),
   actions: {
     async login(user) {
@@ -19,6 +20,7 @@ export const useAuthStore = defineStore({
       this.email = data.email;
       this.first_name = data.first_name;
       this.is_superuser = data.is_superuser;
+      this.is_totem = data.is_totem;
     },
   },
 });

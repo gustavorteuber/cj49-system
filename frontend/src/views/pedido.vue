@@ -1,8 +1,8 @@
 <script>
-import login from '../components/login.vue';
+import pedido from '../components/pedido.vue';
 
 export default {
-  components: { login },
+  components: { pedido },
   data() {
     return {};
   },
@@ -13,7 +13,7 @@ export default {
 <template>
   <div class="flex items-center justify-center h-screen" style="margin: 20px">
     <div class="p-1 bg-gray-100 md:w-1/2 border rounded-md shadow-md">
-        <login />
+        <pedido />
     </div>
     </div>
 </template>

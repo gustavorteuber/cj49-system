@@ -1,11 +1,13 @@
 from rest_framework.permissions import AllowAny
-from rest_framework import generics
 from rest_framework.viewsets import ModelViewSet
-from core.models import Usuario, Boletos
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from core.models import Usuario, Estoque, Pedido
 from core.serializers import (
     UsuarioSerializer,
     UsuarioCreateSerializer,
-    BoletosSerializer,
+    EstoqueSerializer,
+    PedidoSerializer
 )
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -36,12 +38,31 @@ class UsuarioViewSet(ModelViewSet):
             return UsuarioCreateSerializer
         return UsuarioSerializer
 
+class EstoqueViewSet(ModelViewSet):
+    queryset = Estoque.objects.all()
+    serializer_class = EstoqueSerializer
+    permission_classes = [AllowAny]
 
-class BoletosList(generics.ListCreateAPIView):
-    queryset = Boletos.objects.all()
-    serializer_class = BoletosSerializer
 
+class PedidoViewSet(ModelViewSet):
+    queryset = Pedido.objects.all()
+    serializer_class = PedidoSerializer
+    permission_classes = [AllowAny]
 
-class BoletosDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Boletos.objects.all()
-    serializer_class = BoletosSerializer
+@api_view(['PATCH'])
+def atualizar_estoque(request):
+    # Verifica se o pedido é PATCH
+    if request.method == 'PATCH':
+        # Aqui você pode escrever o código para atualizar o estoque
+        # usando os dados enviados na requisição
+        # Por exemplo:
+        estoque = Estoque.objects.get(pk=1)
+        estoque.coca = request.data.get('coca', estoque.coca)
+        estoque.cerveja = request.data.get('cerveja', estoque.cerveja)
+        estoque.hamburguer = request.data.get('hamburguer', estoque.hamburguer)
+        estoque.save()
+        # Retorna uma resposta de sucesso
+        return Response({'message': 'Estoque atualizado com sucesso!'})
+    else:
+        # Se a requisição não for PATCH, retorna um erro 405
+        return Response({'error': 'Método não permitido.'}, status=405)

@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Login from "../views/login.vue";
-import Caixa from "../views/caixa.vue";
-import Tesouraria from "../views/tesouraria.vue";
+import Pedido from "../views/pedido.vue";
+import Estoque from "../views/estoque.vue";
 
 const routes = [
   {
@@ -9,15 +9,16 @@ const routes = [
     name: "Login",
     component: Login,
   },
+
   {
-    path: "/caixa",
-    name: "Caixa",
-    component: Caixa,
+    path: "/pedido",
+    name: "Pedido",
+    component: Pedido,
   },
   {
-    path: "/tesouraria",
-    name: "Tesouraria",
-    component: Tesouraria,
+    path: "/estoque",
+    name: "Estoque",
+    component: Estoque,
   },
 ];
 const router = Router();

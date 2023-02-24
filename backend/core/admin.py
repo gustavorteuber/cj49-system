@@ -1,12 +1,11 @@
-from core.models import Usuario, Boletos
+from core.models import Usuario, Estoque, Pedido
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
 
 admin.site.register(Usuario)
-admin.site.register(Boletos)
-
-
+admin.site.register(Estoque)
+admin.site.register(Pedido)
 
 class UsuarioAdmin(UserAdmin):
     fieldsets = (
@@ -18,6 +17,7 @@ class UsuarioAdmin(UserAdmin):
                 "fields": (
                     "is_active",
                     "is_staff",
+                    "is_totem",
                     "is_superuser",
                     "user_permissions",
                 ),
@@ -26,7 +26,3 @@ class UsuarioAdmin(UserAdmin):
         (_("Important dates"), {"fields": ("last_login", "date_joined")}),
     )
 
-class BoletosAdmin(admin.ModelAdmin):
-    fieldsets = (
-        (None, {"fields": ("titular", "pago", "data")}),
-    )

@@ -20,6 +20,7 @@
     "pandas": "^0.0.3",
     "pinia": "^2.0.32",
     "vue": "^3.2.36",
+    "vue-router": "^4.1.6",
     "vue3-leaflet": "^1.0.43",
     "xlsx": "^0.18.5",
     "xlsx-populate": "^1.21.0"
