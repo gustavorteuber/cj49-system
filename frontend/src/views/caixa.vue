@@ -1,6 +1,6 @@
 <script>
 // import axios from "axios";
-import calculator from "../components/calculator.vue";
+import calculator from "../components/estoquepedido.vue";
 import caixa from "../components/eletronicmoney.vue";
 export default {
   components: { calculator, caixa },
