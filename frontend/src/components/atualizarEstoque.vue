@@ -1,10 +1,10 @@
 <template>
     <div>
-      <h1 class="mt-4 text-center text-2xl font-bold text-black sm:text-3xl text-gray-700 font-bold">
+      <h1 class="mt-4 text-center text-2xl font-bold text-black sm:text-3xl text-black font-bold">
       Atualizar estoque:
     </h1>
     <div class="bg-white shadow-lg rounded-lg p-10 m-5">
-      <label class="block text-gray-700 font-bold mb-2">Coca-Cola (R$5)</label>
+      <label class="block text-black font-bold mb-2">Coca-Cola (R$5)</label>
       <div class="flex items-center">
         <button
           class="px-2 py-1 border border-gray-400 rounded-l"
@@ -25,7 +25,7 @@
           +
         </button>
       </div>
-      <label class="mt-4 block text-gray-700 font-bold mb-2">Cerveja (R$12)</label>
+      <label class="mt-4 block text-black font-bold mb-2">Cerveja (R$12)</label>
       <div class="flex items-center">
         <button
           class="px-2 py-1 border border-gray-400 rounded-l"
@@ -47,7 +47,7 @@
           +
         </button>
       </div>
-      <label class="mt-4 block text-gray-700 font-bold mb-2"
+      <label class="mt-4 block text-black font-bold mb-2"
         >Hamburger (R$15)</label
       >
       <div class="flex items-center">
@@ -95,15 +95,29 @@
     },
     methods: {
       atualizarEstoque() {
-        axios.patch("http://localhost:8000/patchEstoque/", this.estoque)
-        .then(response => {
-        console.log("Estoque atualizado com sucesso:", response.data);
-        })
-        .catch(error => {
-            console.log("Erro ao atualizar estoque:", error);
-        });
-        location.reload();  
+      axios.get("http://localhost:8000/estoque/1")
+      .then(response => {
+        const estoqueAtual = response.data;
+        const novoEstoque = {
+          coca: this.estoque.coca + estoqueAtual.coca,
+          cerveja: this.estoque.cerveja + estoqueAtual.cerveja,
+          hamburguer: this.estoque.hamburguer + estoqueAtual.hamburguer,
+        };
+        axios.patch("http://localhost:8000/patchEstoque/", novoEstoque)
+          .then(response => {
+            console.log(response);
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+      setTimeout(() => {
         alert("Estoque atualizado com sucesso!");
+        window.location.reload();
+      }, 300);
     },
       updateCoca() {
         this.estoque.coca = this.estoque.coca < 0 ? 0 : this.estoque.coca;
