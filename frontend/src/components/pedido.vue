@@ -1,9 +1,9 @@
 <template>
   <div>
-    <h1 class="text-center text-xl block text-gray-700 font-bold mb-4">
+    <h1 class="mt-4 text-center text-2xl font-bold text-black sm:text-3xl text-black font-bold">
     Fazer pedido:
   </h1>
-  <div class="mb-4">
+  <div class="bg-white shadow-lg rounded-lg p-10 m-5">
     <label class="block text-gray-700 font-bold mb-2">Coca-Cola (R$5)</label>
     <div class="flex items-center">
       <button
@@ -25,9 +25,6 @@
         +
       </button>
     </div>
-  </div>
-
-  <div class="mb-4">
     <label class="block text-gray-700 font-bold mb-2">Cerveja (R$12)</label>
     <div class="flex items-center">
       <button
@@ -50,8 +47,6 @@
         +
       </button>
     </div>
-  </div>
-  <div class="mb-4">
     <label class="block text-gray-700 font-bold mb-2"
       >Hamburgers (R$15)</label
     >
@@ -76,13 +71,13 @@
       </button>
     </div>
     <div class="mt-4 text-lg font-bold mb-2">Valor total: R$ {{ total }}</div>
-  </div>
     <button
-    class="bg-emerald-500 border-solid border-2 border-emerald-500 text-white px-4 py-2 rounded-md hover:bg-emerald-600"
+    class="mt-4 block w-full rounded-lg bg-blue-600 hover:bg-blue-700 px-5 py-3 text-sm font-medium text-white"
     @click="fazerPedido"
   >
     Fazer Pedido
   </button>
+  </div>
   </div>
 </template>
 <script>
@@ -93,6 +88,11 @@ export default {
     return {
       pedido: {
         usuario: 1,
+        coca: 0,
+        cerveja: 0,
+        hamburguer: 0,
+      },
+      estoque: {
         coca: 0,
         cerveja: 0,
         hamburguer: 0,
@@ -110,16 +110,21 @@ export default {
   },
   methods: {
     fazerPedido() {
-      axios
-        .post("http://localhost:8000/pedido/", this.pedido)
-        .then((response) => {
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-        alert("Pedido realizado com sucesso!");
-    },
+    if (this.total === 0) {
+    alert("Pedido vazio. Adicione pelo menos um item!");
+    return;
+  }
+  axios
+    .post("http://localhost:8000/pedido/", this.pedido)
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  alert("Pedido realizado com sucesso!");
+  location.reload();
+  },
     updateCoca() {
       this.pedido.coca = this.pedido.coca < 0 ? 0 : this.pedido.coca;
       window.localStorage.setItem("coca", this.pedido.coca);

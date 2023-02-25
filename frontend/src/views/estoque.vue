@@ -7,6 +7,11 @@ export default {
   data() {
     return {};
   },
+  created() {
+    setInterval(() => {
+      location.reload();
+    }, 60000); 
+  },
 };
 
 </script>

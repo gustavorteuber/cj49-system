@@ -95,30 +95,35 @@
     },
     methods: {
       atualizarEstoque() {
-      axios.get("http://localhost:8000/estoque/1")
-      .then(response => {
-        const estoqueAtual = response.data;
-        const novoEstoque = {
-          coca: this.estoque.coca + estoqueAtual.coca,
-          cerveja: this.estoque.cerveja + estoqueAtual.cerveja,
-          hamburguer: this.estoque.hamburguer + estoqueAtual.hamburguer,
-        };
-        axios.patch("http://localhost:8000/patchEstoque/", novoEstoque)
-          .then(response => {
-            console.log(response);
-          })
-          .catch(error => {
-            console.log(error);
-          });
-      })
-      .catch(error => {
-        console.log(error);
-      });
-      setTimeout(() => {
-        alert("Estoque atualizado com sucesso!");
-        window.location.reload();
-      }, 300);
-    },
+        axios.get("http://localhost:8000/estoque/1")
+        .then(response => {
+          const estoqueAtual = response.data;
+          const novoEstoque = {
+            coca: this.estoque.coca + estoqueAtual.coca,
+            cerveja: this.estoque.cerveja + estoqueAtual.cerveja,
+            hamburguer: this.estoque.hamburguer + estoqueAtual.hamburguer,
+          };
+
+          if (this.estoque.coca > 0 || this.estoque.cerveja > 0 || this.estoque.hamburguer > 0) {
+            axios.patch("http://localhost:8000/patchEstoque/", novoEstoque)
+              .then(response => {
+                console.log(response);
+              })
+              .catch(error => {
+                console.log(error);
+              });
+            setTimeout(() => {
+              alert("Estoque atualizado com sucesso!");
+              window.location.reload();
+            }, 300);
+          } else {
+            alert("Não é possível atualizar o estoque com valores zerados.");
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      },
       updateCoca() {
         this.estoque.coca = this.estoque.coca < 0 ? 0 : this.estoque.coca;
         window.localStorage.setItem("coca", this.estoque.coca);
