@@ -1,32 +1,42 @@
 <template>
-    <div>
-      <h1 class="mt-4 text-center text-2xl font-bold text-black sm:text-3xl font-bold">Estoque:</h1>
-      <div class="bg-white shadow-lg rounded-lg p-10 m-5">
-        <label class="mb-4 block text-black text-lg font-bold mb-2">Coca-Cola: {{ estoque.coca }}</label>
-        <label class="mb-4 block text-black text-lg font-bold mb-2">Cerveja: {{ estoque.cerveja }}</label>
-        <label class="mb-4 block text-black text-lg font-bold mb-2">Hamburguer: {{ estoque.hamburguer }}</label>
-        <button
+  <div>
+    <h1
+      class="mt-4 text-center text-2xl font-bold text-black sm:text-3xl font-bold"
+    >
+      Estoque:
+    </h1>
+    <div class="bg-white shadow-lg rounded-lg p-10 m-5">
+      <label class="mb-4 block text-black text-lg font-bold mb-2"
+        >Coca-Cola: {{ estoque.coca }}</label
+      >
+      <label class="mb-4 block text-black text-lg font-bold mb-2"
+        >Cerveja: {{ estoque.cerveja }}</label
+      >
+      <label class="mb-4 block text-black text-lg font-bold mb-2"
+        >Hamburguer: {{ estoque.hamburguer }}</label
+      >
+      <button
         class="mt-4 block w-full rounded-lg bg-emerald-600 hover:bg-emerald-700 px-5 py-3 text-sm font-medium text-white"
         @click="gerarPlanilha"
-        >
-      Gerar planilha
-    </button>
-        <button
+      >
+        Gerar planilha
+      </button>
+      <button
         class="mt-4 block w-full rounded-lg bg-red-600 hover:bg-red-700 px-5 py-3 text-sm font-medium text-white"
         @click="zerarEstoque"
-        >
-      Zerar estoque
-    </button>
-      </div>
+      >
+        Zerar estoque
+      </button>
     </div>
-  </template>
+  </div>
+</template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 import ExcelJS from "exceljs";
 
 export default {
-  name: 'Estoque',
+  name: "Estoque",
   data() {
     return {
       estoque: {
@@ -43,7 +53,7 @@ export default {
   methods: {
     carregarEstoque() {
       axios
-        .get('http://localhost:8000/estoque/1')
+        .get("http://localhost:8000/estoque/2")
         .then((response) => {
           this.estoque = response.data;
         })
@@ -52,29 +62,31 @@ export default {
         });
     },
     zerarEstoque() {
-    for (let item in this.estoque) {
-      this.estoque[item] = 0;
-    }
-    axios.patch("http://localhost:8000/patchEstoque/", this.estoque)
-      .then(response => {
-        console.log("Estoque zerado com sucesso:", response.data);
-      })
-      .catch(error => {
-        console.log("Erro ao zerar estoque:", error);
-      });
-    alert("Estoque zerado com sucesso!");
-    location.reload(); 
-  },
-  gerarPlanilha() {
-      axios.get("http://localhost:8000/pedido")
-      .then((response) => {
+      for (let item in this.estoque) {
+        this.estoque[item] = 0;
+      }
+      axios
+        .patch("http://localhost:8000/patchEstoque/", this.estoque)
+        .then((response) => {
+          console.log("Estoque zerado com sucesso:", response.data);
+        })
+        .catch((error) => {
+          console.log("Erro ao zerar estoque:", error);
+        });
+      alert("Estoque zerado com sucesso!");
+      location.reload();
+    },
+    gerarPlanilha() {
+      axios
+        .get("http://localhost:8000/pedido")
+        .then((response) => {
           const pedidos = response.data;
           let totalPedidos = 0;
 
           // Criar nova planilha
           const workbook = new ExcelJS.Workbook();
           const sheet = workbook.addWorksheet("Pedidos");
-          
+
           // Definir cabeçalhos das colunas
           sheet.columns = [
             { header: "Produto", key: "produto", width: 15 },
@@ -114,7 +126,9 @@ export default {
               linhaPedido.produto = "Hamburguer";
               linhaPedido.quantidade = pedido.hamburguer;
               linhaPedido.valorUnitario = "R$15.00";
-              linhaPedido.valorTotal = `R$${(pedido.hamburguer * 15).toFixed(2)}`;
+              linhaPedido.valorTotal = `R$${(pedido.hamburguer * 15).toFixed(
+                2
+              )}`;
               sheet.addRow(linhaPedido);
               totalPedidos += pedido.hamburguer * 15;
             }
@@ -143,7 +157,9 @@ export default {
           // Salvar planilha em buffer
           workbook.xlsx.writeBuffer().then((buffer) => {
             // Criar blob com buffer da planilha
-            const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+            const blob = new Blob([buffer], {
+              type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            });
 
             // Criar objeto URL para download da planilha
             const url = window.URL.createObjectURL(blob);
@@ -166,5 +182,3 @@ export default {
   },
 };
 </script>
-  
-  
