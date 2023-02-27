@@ -1,8 +1,9 @@
 <script>
 import notificationbar from "../components/registro.vue";
+import headerinfo from "../components/header.vue";
 import axios from "axios";
 export default {
-  components: { notificationbar },
+  components: { notificationbar, headerinfo },
   data() {
     return {
       tarefas: [],
@@ -27,6 +28,7 @@ export default {
 </script>
 
 <template>
+  <headerinfo />
   <h1
     class="mt-4 text-center text-2xl font-bold text-black sm:text-3xl text-black font-bold"
   >

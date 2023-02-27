@@ -27,6 +27,7 @@
       >
         Zerar estoque
       </button>
+      <RouterLink to="/pedido"> <button>Pedido</button> </RouterLink>
     </div>
   </div>
 </template>
@@ -53,7 +54,7 @@ export default {
   methods: {
     carregarEstoque() {
       axios
-        .get("http://localhost:8000/estoque/2")
+        .get("http://localhost:8000/estoque/1")
         .then((response) => {
           this.estoque = response.data;
         })
@@ -62,20 +63,25 @@ export default {
         });
     },
     zerarEstoque() {
-      for (let item in this.estoque) {
-        this.estoque[item] = 0;
-      }
+      const estoqueZerado = {
+        coca: 0,
+        cerveja: 0,
+        hamburguer: 0,
+      };
+
       axios
-        .patch("http://localhost:8000/patchEstoque/", this.estoque)
+        .patch("http://localhost:8000/patchEstoque/", estoqueZerado)
         .then((response) => {
           console.log("Estoque zerado com sucesso:", response.data);
+          alert("Estoque zerado com sucesso!");
+          location.reload();
         })
         .catch((error) => {
           console.log("Erro ao zerar estoque:", error);
+          alert("Erro ao zerar estoque.");
         });
-      alert("Estoque zerado com sucesso!");
-      location.reload();
     },
+
     gerarPlanilha() {
       axios
         .get("http://localhost:8000/pedido")

@@ -98,7 +98,7 @@ export default {
   methods: {
     atualizarEstoque() {
       axios
-        .get("http://localhost:8000/estoque/2")
+        .get("http://localhost:8000/estoque/1")
         .then((response) => {
           const estoqueAtual = response.data;
           const novoEstoque = {
