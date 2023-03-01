@@ -10,5 +10,5 @@ export default {
 </script>
 
 <template>
-        <dashboard />
+    <dashboard />
 </template>
