@@ -3,6 +3,7 @@ import Login from "../views/login.vue";
 import Pedido from "../views/pedido.vue";
 import Estoque from "../views/estoque.vue";
 import Registro from "../views/registers.vue";
+import Dashboard from "../views/dashboard.vue";
 
 const routes = [
   {
@@ -25,6 +26,11 @@ const routes = [
     path: "/registro",
     name: "Registro",
     component: Registro,
+  },
+  {
+    path: "/dashboard",
+    name: "Dashboard",
+    component: Dashboard,
   },
 ];
 const router = Router();
