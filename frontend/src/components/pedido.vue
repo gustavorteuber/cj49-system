@@ -89,7 +89,6 @@ export default {
   data() {
     return {
       pedido: {
-        usuario: 1,
         coca: 0,
         cerveja: 0,
         hamburguer: 0,
@@ -125,7 +124,8 @@ export default {
           console.log(error);
         });
       alert("Pedido realizado com sucesso!");
-      location.reload();
+      this.$router.push("/registro");
+      // location.reload();
     },
     updateCoca() {
       this.pedido.coca = this.pedido.coca < 0 ? 0 : this.pedido.coca;

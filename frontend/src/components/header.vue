@@ -66,10 +66,8 @@
           />
         </svg>
       </li>
-      <li>
-        <a class="text-sm text-gray-400 hover:text-gray-500" href="#"
-          >Fazer pedido</a
-        >
+      <li class="text-sm text-gray-400 hover:text-gray-500">
+        <RouterLink to="/pedido">Fazer pedido </RouterLink>
       </li>
       <li class="text-gray-300">
         <svg
@@ -87,6 +85,7 @@
           />
         </svg>
       </li>
+      <notify />
       <li>
         <a class="text-sm text-gray-400 hover:text-gray-500" href="#"
           >Contact</a
@@ -175,6 +174,7 @@
         </ul>
       </div>
       <div class="mt-auto">
+        <notify />
         <div class="pt-6">
           <a
             class="block px-4 py-3 mb-3 leading-loose text-xs text-center font-semibold leading-none bg-gray-50 hover:bg-gray-100 rounded-xl"
@@ -195,9 +195,13 @@
   </div>
 </template>
 <script>
-// Burger menus
+import notify from "../components/toogleNoti.vue";
+
+export default {
+  components: { notify },
+};
+
 document.addEventListener("DOMContentLoaded", function () {
-  // open
   const burger = document.querySelectorAll(".navbar-burger");
   const menu = document.querySelectorAll(".navbar-menu");
 
