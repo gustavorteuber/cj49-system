@@ -27,7 +27,6 @@
       >
         Zerar estoque
       </button>
-      <RouterLink to="/pedido"> <button>Pedido</button> </RouterLink>
     </div>
   </div>
 </template>

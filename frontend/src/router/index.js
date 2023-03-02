@@ -3,7 +3,7 @@ import Login from "../views/login.vue";
 import Pedido from "../views/pedido.vue";
 import Estoque from "../views/estoque.vue";
 import Registro from "../views/registers.vue";
-import Dashboard from "../views/dashboard.vue";
+import dashboard from "../views/master/dashboard.vue";
 
 const routes = [
   {
@@ -11,26 +11,27 @@ const routes = [
     name: "Login",
     component: Login,
   },
-
   {
-    path: "/pedido",
-    name: "Pedido",
-    component: Pedido,
-  },
-  {
-    path: "/estoque",
-    name: "Estoque",
-    component: Estoque,
-  },
-  {
-    path: "/registro",
-    name: "Registro",
-    component: Registro,
-  },
-  {
-    path: "/dashboard",
     name: "Dashboard",
-    component: Dashboard,
+    path: "/home",
+    component: dashboard,
+    children: [
+      {
+        path: "/pedido",
+        name: "Pedido",
+        component: Pedido,
+      },
+      {
+        path: "/estoque",
+        name: "Estoque",
+        component: Estoque,
+      },
+      {
+        path: "/registro",
+        name: "Registro",
+        component: Registro,
+      },
+    ],
   },
 ];
 const router = Router();
