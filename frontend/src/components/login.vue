@@ -12,11 +12,11 @@ export default {
     async submitLogin() {
       try {
         await this.login(this.user);
-        if(this.user.username == "admin"){
-          this.$router.push("/estoque");
-        }else{
-            this.$router.push("/pedido");
-            }
+        if (this.user.username == "admin") {
+          this.$router.push("/produto");
+        } else {
+          this.$router.push("/pedido");
+        }
       } catch {
         alert("Usuário ou senha invalidos!");
       }

@@ -11,12 +11,14 @@ from core.views import (
     MyTokenObtainPairView,
     EstoqueViewSet,
     PedidoViewSet,
+    ProdutoViewSet,
     atualizar_estoque
 )
 
 router = DefaultRouter()
 router.register(r'usuario', UsuarioViewSet)
 router.register(r'estoque', EstoqueViewSet)
+router.register(r'produto', ProdutoViewSet)
 router.register(r'pedido', PedidoViewSet)
 
 urlpatterns = [

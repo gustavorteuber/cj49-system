@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
-from core.models import Usuario, Estoque, Pedido
+from core.models import Usuario, Estoque, Pedido, Produto
+
 
 class UsuarioSerializer(ModelSerializer):
     id = serializers.IntegerField(read_only=True, required=False)
@@ -30,7 +31,7 @@ class UsuarioSerializer(ModelSerializer):
             raise serializers.ValidationError(
                 {"username": ("esse nome de usuario já está em uso")}
             )
-        
+
         return args
 
 
@@ -70,6 +71,7 @@ class UsuarioCreateSerializer(ModelSerializer):
         newUser.save()
         return newUser
 
+
 class EstoqueSerializer(ModelSerializer):
     id = serializers.IntegerField(read_only=True, required=False)
 
@@ -82,6 +84,23 @@ class EstoqueSerializer(ModelSerializer):
             "cerveja",
             "hamburguer",
         )
+
+
+class ProdutoSerializer(ModelSerializer):
+    id = serializers.IntegerField(read_only=True, required=False)
+
+    class Meta:
+        model = Produto
+        read_only_fields = ("id",)
+        fields = (
+            "id",
+            "nome",
+            "preco",
+            "descricao",
+            "criado_em",
+            "atualizado_em",
+        )
+
 
 class PedidoSerializer(ModelSerializer):
     id = serializers.IntegerField(read_only=True, required=False)
@@ -97,4 +116,3 @@ class PedidoSerializer(ModelSerializer):
             "hamburguer",
             "data",
         )
-

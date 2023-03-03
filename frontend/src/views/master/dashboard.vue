@@ -50,7 +50,7 @@ export default {
           <h3 class="font-bold text-xl">Proative</h3>
         </div>
       </div>
-      <div class="h-[calc(100vh-50px)] bg-neutral-800 py-[20px]">
+      <div class="h-[calc(100vh-50px)] bg-neutral-900 py-[20px]">
         <div
           class="flex flex-col justify-between h-full px-[20px] space-y-[10px]"
         >

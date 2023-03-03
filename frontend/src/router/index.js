@@ -3,6 +3,7 @@ import Login from "../views/login.vue";
 import Pedido from "../views/pedido.vue";
 import Estoque from "../views/estoque.vue";
 import Registro from "../views/registers.vue";
+import Produto from "../views/produtos.vue";
 import dashboard from "../views/master/dashboard.vue";
 
 const routes = [
@@ -30,6 +31,11 @@ const routes = [
         path: "/registro",
         name: "Registro",
         component: Registro,
+      },
+      {
+        path: "/produto",
+        name: "Produto",
+        component: Produto,
       },
     ],
   },

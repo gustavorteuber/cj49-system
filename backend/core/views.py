@@ -2,12 +2,13 @@ from rest_framework.permissions import AllowAny
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from core.models import Usuario, Estoque, Pedido
+from core.models import Usuario, Estoque, Pedido, Produto
 from core.serializers import (
     UsuarioSerializer,
     UsuarioCreateSerializer,
     EstoqueSerializer,
-    PedidoSerializer
+    PedidoSerializer,
+    ProdutoSerializer
 )
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -38,6 +39,13 @@ class UsuarioViewSet(ModelViewSet):
             return UsuarioCreateSerializer
         return UsuarioSerializer
 
+
+class ProdutoViewSet(ModelViewSet):
+    queryset = Produto.objects.all()
+    serializer_class = ProdutoSerializer
+    permission_classes = [AllowAny]
+
+
 class EstoqueViewSet(ModelViewSet):
     queryset = Estoque.objects.all()
     serializer_class = EstoqueSerializer
@@ -48,6 +56,7 @@ class PedidoViewSet(ModelViewSet):
     queryset = Pedido.objects.all()
     serializer_class = PedidoSerializer
     permission_classes = [AllowAny]
+
 
 @api_view(['PATCH'])
 def atualizar_estoque(request):

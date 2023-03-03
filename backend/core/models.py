@@ -11,10 +11,12 @@ class Usuario(AbstractUser):
     email = models.EmailField(max_length=100, unique=True)
     is_totem = models.BooleanField(default=False)
 
+
 class Estoque(models.Model):
     coca = models.IntegerField()
     cerveja = models.IntegerField()
     hamburguer = models.IntegerField()
+
 
 class Pedido(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
@@ -22,6 +24,7 @@ class Pedido(models.Model):
     cerveja = models.IntegerField()
     hamburguer = models.IntegerField()
     data = models.DateTimeField(auto_now_add=True)
+
 
 @receiver(post_save, sender=Pedido)
 def atualizar_estoque(sender, instance, created, **kwargs):
@@ -31,3 +34,14 @@ def atualizar_estoque(sender, instance, created, **kwargs):
         estoque.cerveja -= instance.cerveja
         estoque.hamburguer -= instance.hamburguer
         estoque.save()
+
+
+class Produto(models.Model):
+    nome = models.CharField(max_length=100)
+    preco = models.DecimalField(max_digits=10, decimal_places=2)
+    descricao = models.TextField()
+    criado_em = models.DateTimeField(auto_now_add=True)
+    atualizado_em = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.nome
