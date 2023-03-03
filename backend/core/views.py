@@ -2,13 +2,14 @@ from rest_framework.permissions import AllowAny
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from core.models import Usuario, Estoque, Pedido, Produto
+from core.models import Usuario, Estoque, Pedido, Produto, Etiqueta
 from core.serializers import (
     UsuarioSerializer,
     UsuarioCreateSerializer,
     EstoqueSerializer,
     PedidoSerializer,
-    ProdutoSerializer
+    ProdutoSerializer,
+    EtiquetaSerializer
 )
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -49,6 +50,12 @@ class ProdutoViewSet(ModelViewSet):
 class EstoqueViewSet(ModelViewSet):
     queryset = Estoque.objects.all()
     serializer_class = EstoqueSerializer
+    permission_classes = [AllowAny]
+
+
+class EtiquetaViewSet(ModelViewSet):
+    queryset = Etiqueta.objects.all()
+    serializer_class = EtiquetaSerializer
     permission_classes = [AllowAny]
 
 

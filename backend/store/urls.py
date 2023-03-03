@@ -12,6 +12,7 @@ from core.views import (
     EstoqueViewSet,
     PedidoViewSet,
     ProdutoViewSet,
+    EtiquetaViewSet,
     atualizar_estoque
 )
 
@@ -20,6 +21,8 @@ router.register(r'usuario', UsuarioViewSet)
 router.register(r'estoque', EstoqueViewSet)
 router.register(r'produto', ProdutoViewSet)
 router.register(r'pedido', PedidoViewSet)
+router.register(r'etiqueta', EtiquetaViewSet)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),

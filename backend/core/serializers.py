@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
-from core.models import Usuario, Estoque, Pedido, Produto
+from core.models import Usuario, Estoque, Pedido, Produto, Etiqueta
 
 
 class UsuarioSerializer(ModelSerializer):
@@ -99,6 +99,19 @@ class ProdutoSerializer(ModelSerializer):
             "descricao",
             "criado_em",
             "atualizado_em",
+        )
+
+
+class EtiquetaSerializer(ModelSerializer):
+    id = serializers.IntegerField(read_only=True, required=False)
+
+    class Meta:
+        model = Etiqueta
+        read_only_fields = ("id",)
+        fields = (
+            "id",
+            "nome",
+            "cor",
         )
 
 
