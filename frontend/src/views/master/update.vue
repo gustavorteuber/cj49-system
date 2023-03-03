@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ul class="grid grid-cols-2 gap-4">
+    <ul class="font-">
       <li v-for="etiqueta in etiquetas" :key="etiqueta.id">
         <div class="flex items-center space-x-2">
           <div
@@ -21,12 +21,12 @@
           type="text"
           id="nome"
           v-model="nome"
-          class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+          class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white font-extralight"
           placeholder="Digite o nome da etiqueta que deseja criar"
         />
 
-        <label for="cor">Cor:</label>
-        <input type="color" id="cor" v-model="cor" class="hidden" />
+        <label class="font-semibold" for="cor">Cor:</label>
+        <input type="color" id="cor" v-model="cor" class="hidden font-medium" />
 
         <label
           for="cor"
@@ -37,6 +37,7 @@
     </div>
     <div class="m-7"></div>
     <button
+      @click="criarEtiqueta"
       type="submit"
       class="border border-gray-300 rounded-xl inline-flex items-center justify-center py-2 px-3 border border-emerald-400rounded-xl bg-white text-gray-800 hover:text-yellow-500 text-sm font-semibold transition"
     >

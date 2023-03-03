@@ -27,12 +27,10 @@ router.register(r'etiqueta', EtiquetaViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
-    path("api/media/", include(uploader_router.urls)),
+    path("media/", include(uploader_router.urls)),
     path("token/", MyTokenObtainPairView.as_view(), name="token_obtain_pair"),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path("patchEstoque/", atualizar_estoque, name="atualizar_estoque"),
 ]
-
-
 urlpatterns += static(settings.MEDIA_ENDPOINT,
                       document_root=settings.MEDIA_ROOT)

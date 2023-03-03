@@ -112,6 +112,7 @@ class EtiquetaSerializer(ModelSerializer):
             "id",
             "nome",
             "cor",
+            "produto",
         )
 
 

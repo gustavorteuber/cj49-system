@@ -43,63 +43,16 @@ export default {
 </script>
 
 <template>
-  <body class="relative bg-emerald-50 overflow-hidden max-h-screen">
-    <header class="fixed right-0 top-0 left-60 bg-emerald-50 py-3 px-4 h-16">
+  <body
+    class="relative bg-gradient-to-r from-teal-100 to-lime-100 overflow-hidden max-h-screen"
+  >
+    <header
+      class="fixed right-0 top-0 left-60 bg-gradient-to-r from-teal-100 to-lime-100 py-3 px-4 h-16"
+    >
       <div class="max-w-4xl mx-auto">
         <div class="flex items-center justify-between">
-          <div>
-            <button
-              type="button"
-              class="flex items-center focus:outline-none rounded-lg text-gray-600 hover:text-emerald-600 focus:text-emerald-600 font-semibold p-2 border border-transparent hover:border-emerald-300 focus:border-emerald-300 transition"
-            >
-              <span
-                class="inline-flex items-center justify-center w-6 h-6 text-gray-600 text-xs rounded bg-white transition mr-2"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="1em"
-                  height="1em"
-                  fill="currentColor"
-                  class="bi bi-chevron-left"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"
-                  />
-                </svg>
-              </span>
-              <span class="text-sm">Voltar</span>
-            </button>
-          </div>
           <div class="text-lg font-bold">Bem-vindo ao seu negocio</div>
           <notify />
-
-          <div>
-            <button
-              type="button"
-              class="flex items-center focus:outline-none rounded-lg text-gray-600 hover:text-emerald-600 focus:text-emerald-600 font-semibold p-2 border border-transparent hover:border-emerald-300 focus:border-emerald-300 transition"
-            >
-              <span class="text-sm">Proxima</span>
-              <span
-                class="inline-flex items-center justify-center w-6 h-6 text-gray-600 text-xs rounded bg-white transition ml-2"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="1em"
-                  height="1em"
-                  fill="currentColor"
-                  class="bi bi-chevron-right"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
-                  />
-                </svg>
-              </span>
-            </button>
-          </div>
         </div>
       </div>
     </header>
@@ -225,47 +178,36 @@ export default {
             </h1>
             <div class="flex items-center justify-between">
               <div class="flex items-stretch">
-                <div class="text-gray-400 text-xs">Members<br />connected</div>
+                <div class="text-gray-400 text-xs">Membro<br />Conectado</div>
                 <div class="h-100 border-l mx-4"></div>
                 <div class="flex flex-nowrap -space-x-3">
-                  <div class="h-9 w-9">
+                  <div
+                    class="flex items-center justify-start space-x-4"
+                    @click="toggleDrop"
+                  >
                     <img
-                      class="object-cover w-full h-full rounded-full"
-                      src="https://ui-avatars.com/api/?background=random"
+                      v-if="user.foto != null"
+                      :src="user.foto.url"
+                      class="w-10 h-10 rounded-full"
+                      alt=""
+                    />
+                    <img
+                      v-if="user.foto == null"
+                      src="../master/stores/semfoto.png"
+                      class="w-10 h-10 rounded-full"
+                      alt="teste"
                     />
                   </div>
-                  <div class="h-9 w-9">
-                    <img
-                      class="object-cover w-full h-full rounded-full"
-                      src="https://ui-avatars.com/api/?background=random"
-                    />
+
+                  <div class="flex flex-col pl-3">
+                    <div class="text-sm text-emerald-600">{{ username }}</div>
+                    <span
+                      class="text-xs text-[#acacb0] font-light tracking-tight"
+                    >
+                      {{ email }}
+                    </span>
                   </div>
                 </div>
-              </div>
-              <div class="flex items-center gap-x-2">
-                <button
-                  type="button"
-                  class="inline-flex items-center justify-center h-9 px-3 rounded-xl border hover:border-gray-400 text-gray-800 hover:text-gray-900 transition"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="1em"
-                    height="1em"
-                    fill="currentColor"
-                    class="bi bi-chat-fill"
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15z"
-                    />
-                  </svg>
-                </button>
-                <button
-                  type="button"
-                  class="inline-flex items-center justify-center h-9 px-5 rounded-xl bg-gray-900 text-gray-300 hover:text-white text-sm font-semibold transition"
-                >
-                  Open
-                </button>
               </div>
             </div>
 
@@ -277,7 +219,9 @@ export default {
 
                 <div class="grid grid-cols-2 gap-4">
                   <div class="col-span-2">
-                    <div class="p-4 bg-green-100 rounded-xl">
+                    <div
+                      class="p-4 bg-gradient-to-r from-teal-200 to-lime-200 rounded-xl"
+                    >
                       <div class="font-bold text-xl text-gray-800 leading-none">
                         Olá, <br />{{ username }}
                       </div>

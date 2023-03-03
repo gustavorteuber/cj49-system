@@ -10,13 +10,13 @@
       >Hamburguer: {{ estoque.hamburguer }}</label
     >
     <button
-      class="rounded-xl inline-flex items-center justify-center py-2 px-3 border border-emerald-400rounded-xl bg-white text-gray-800 hover:text-green-500 text-sm font-semibold transition"
+      class="rounded-xl inline-flex items-center justify-center py-2 px-3 border border-emerald-400rounded-xl text-gray-800 hover:text-green-500 text-sm font-semibold transition"
       @click="gerarPlanilha"
     >
       Gerar planilha
     </button>
     <button
-      class="inline-flex items-center justify-center py-2 px-3 rounded-xl bg-white text-gray-800 hover:text-red-500 text-sm font-semibold transition"
+      class="inline-flex items-center justify-center py-2 px-3 rounded-xl text-gray-800 hover:text-red-500 text-sm font-semibold transition"
       @click="zerarEstoque"
     >
       Zerar estoque

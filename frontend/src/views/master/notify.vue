@@ -34,7 +34,7 @@ export default {
   <div class="relative">
     <button
       @click="toggleOpen"
-      class="relative z-10 block p-2 text-gray-700 border border-transparent rounded-md text-neutral-800 focus:border-emerald-500 focus:ring-opacity-40 dark:focus:ring-opacity-40 focus:ring-emerald-300 dark:focus:ring-emerald-400 focus:ring bg-emerald-100 focus:outline-none"
+      class="relative z-10 block p-2 text-gray-700 border border-transparent rounded-md text-neutral-800 focus:border-emerald-500 focus:ring-opacity-40 focus:ring-emerald-300 dark:focus:ring-emerald-400 focus:ring bg-emerald-100 focus:outline-none"
     >
       <svg
         class="w-5 h-5 text-emerald-800"
@@ -51,7 +51,7 @@ export default {
 
     <div
       v-if="isOpen"
-      class="absolute right-0 z-20 w-64 mt-2 overflow-hidden origin-top-right bg-white rounded-md shadow-lg sm:w-80"
+      class="absolute right-0 z-20 w-64 mt-2 overflow-hidden origin-top-right bg-white shadow-2xl rounded-md sm:w-80"
     >
       <div class="py-2" style="overflow: auto; height: 300px">
         <feed
@@ -62,7 +62,7 @@ export default {
       </div>
       <a
         href="#"
-        class="block py-2 font-bold text-center text-white bg-emerald-800 hover:underline"
+        class="block py-2 font-bold text-center text-emerald-800 bg-gradient-to-r from-teal-200 to-lime-200 hover:underline"
         >Ver todas</a
       >
     </div>
