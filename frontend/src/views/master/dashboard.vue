@@ -147,24 +147,33 @@ export default {
           </div>
         </div>
         <div class="p-4">
-          <button
-            type="button"
-            class="inline-flex items-center justify-center h-9 px-4 rounded-xl bg-gray-900 text-gray-300 hover:text-white text-sm font-semibold transition"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="1em"
-              height="1em"
-              fill="currentColor"
-              class=""
-              viewBox="0 0 16 16"
+          <div class="h-100 border-l mx-4"></div>
+          <div class="flex flex-nowrap -space-x-3">
+            <div
+              class="flex items-center justify-start space-x-4"
+              @click="toggleDrop"
             >
-              <path
-                d="M12 1a1 1 0 0 1 1 1v13h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V2a1 1 0 0 1 1-1h8zm-2 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"
+              <img
+                v-if="user.foto != null"
+                :src="user.foto.url"
+                class="w-10 h-10 rounded-full"
+                alt=""
               />
-            </svg>
-          </button>
-          <span class="font-bold text-sm ml-2">Logout</span>
+              <img
+                v-if="user.foto == null"
+                src="../master/stores/semfoto.png"
+                class="w-10 h-10 rounded-full"
+                alt="teste"
+              />
+            </div>
+
+            <div class="flex flex-col pl-3">
+              <div class="text-sm text-emerald-600">{{ username }}</div>
+              <span class="text-xs text-[#acacb0] font-light tracking-tight">
+                {{ email }}
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </aside>
@@ -173,45 +182,9 @@ export default {
       <div class="px-6 py-8">
         <div class="max-w-4xl mx-auto">
           <div class="bg-white rounded-3xl p-8 mb-5">
-            <h1 class="text-3xl font-bold mb-10">
-              Dashboard de gerenciamento Proative, confira seus stats
-            </h1>
-            <div class="flex items-center justify-between">
-              <div class="flex items-stretch">
-                <div class="text-gray-400 text-xs">Membro<br />Conectado</div>
-                <div class="h-100 border-l mx-4"></div>
-                <div class="flex flex-nowrap -space-x-3">
-                  <div
-                    class="flex items-center justify-start space-x-4"
-                    @click="toggleDrop"
-                  >
-                    <img
-                      v-if="user.foto != null"
-                      :src="user.foto.url"
-                      class="w-10 h-10 rounded-full"
-                      alt=""
-                    />
-                    <img
-                      v-if="user.foto == null"
-                      src="../master/stores/semfoto.png"
-                      class="w-10 h-10 rounded-full"
-                      alt="teste"
-                    />
-                  </div>
-
-                  <div class="flex flex-col pl-3">
-                    <div class="text-sm text-emerald-600">{{ username }}</div>
-                    <span
-                      class="text-xs text-[#acacb0] font-light tracking-tight"
-                    >
-                      {{ email }}
-                    </span>
-                  </div>
-                </div>
-              </div>
+            <div class="flex items-stretch">
+              <div class="flex flex-nowrap -space-x-3"></div>
             </div>
-
-            <hr class="my-10" />
 
             <div class="grid grid-cols-2 gap-x-20">
               <div>
