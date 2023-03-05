@@ -140,7 +140,7 @@ export default {
                     <path
                       d="M2 1a1 1 0 0 0-1 1v4.586a1 1 0 0 0 .293.707l7 7a1 1 0 0 0 1.414 0l4.586-4.586a1 1 0 0 0 0-1.414l-7-7A1 1 0 0 0 6.586 1H2zm4 3.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"
                     /></svg
-                  >Etiquetas
+                  >Atualizar estoque
                 </a>
               </li>
             </ul>
@@ -215,7 +215,11 @@ export default {
 
             <div class="grid grid-cols-2 gap-x-20">
               <div>
-                <h2 class="text-2xl font-bold mb-4">Status do estoque</h2>
+                <h2
+                  class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-lime-600 mb-4"
+                >
+                  Status do estoque
+                </h2>
 
                 <div class="grid grid-cols-2 gap-4">
                   <div class="col-span-2">
@@ -243,7 +247,11 @@ export default {
                 </div>
               </div>
               <div>
-                <h2 class="text-2xl font-bold mb-4">Etiquetas</h2>
+                <h2
+                  class="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-lime-600 text-2xl font-bold mb-4"
+                >
+                  Atualizar estoque
+                </h2>
 
                 <div
                   class="p-4 bg-white border border-gray-300 rounded-xl text-gray-800"

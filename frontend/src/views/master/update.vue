@@ -1,47 +1,74 @@
 <template>
   <div>
-    <ul class="font-">
-      <li v-for="etiqueta in etiquetas" :key="etiqueta.id">
-        <div class="flex items-center space-x-2">
-          <div
-            :style="{ backgroundColor: etiqueta.cor }"
-            class="w-4 h-4 rounded-full"
-          ></div>
-          <div>{{ etiqueta.nome }}</div>
-        </div>
-      </li>
-    </ul>
-  </div>
-  <div class="font-bold text-xl text-gray-800 leading-none"></div>
-  <div class="mt-5">
-    <div>
-      <form @submit.prevent="criarEtiqueta">
-        <label for="nome">Nome:</label>
-        <input
-          type="text"
-          id="nome"
-          v-model="nome"
-          class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white font-extralight"
-          placeholder="Digite o nome da etiqueta que deseja criar"
-        />
-
-        <label class="font-semibold" for="cor">Cor:</label>
-        <input type="color" id="cor" v-model="cor" class="hidden font-medium" />
-
-        <label
-          for="cor"
-          class="bg-white rounded-full cursor-pointer inline-block w-8 h-8 border-gray-300 border-2"
-          style="background-color: {{ cor }};"
-        ></label>
-      </form>
+    <label class="block text-black font-bold mb-2">Coca-Cola (R$5)</label>
+    <div class="flex items-center">
+      <button
+        class="px-2 py-1 border border-gray-400 rounded-l"
+        @click="decreaseCocaCola"
+      >
+        -
+      </button>
+      <input
+        type="number"
+        class="px-2 py-1 border border-gray-400 text-center flex-1"
+        v-model="estoque.coca"
+        @input="updateCoca"
+      />
+      <button
+        class="px-2 py-1 border border-gray-400 rounded-r"
+        @click="increaseCocaCola"
+      >
+        +
+      </button>
     </div>
-    <div class="m-7"></div>
+    <label class="mt-4 block text-black font-bold mb-2">Cerveja (R$12)</label>
+    <div class="flex items-center">
+      <button
+        class="px-2 py-1 border border-gray-400 rounded-l"
+        @click="decreaseBeer"
+      >
+        -
+      </button>
+
+      <input
+        type="number"
+        class="px-2 py-1 border border-gray-400 text-center flex-1"
+        v-model="estoque.cerveja"
+        @input="updateBeer"
+      />
+      <button
+        class="px-2 py-1 border border-gray-400 rounded-r"
+        @click="increaseBeer"
+      >
+        +
+      </button>
+    </div>
+    <label class="mt-4 block text-black font-bold mb-2">Hamburger (R$15)</label>
+    <div class="flex items-center">
+      <button
+        class="px-2 py-1 border border-gray-400 rounded-l"
+        @click="decreaseHam"
+      >
+        -
+      </button>
+      <input
+        type="number"
+        class="px-2 py-1 border border-gray-400 text-center flex-1"
+        v-model="estoque.hamburguer"
+        @input="updateHam"
+      />
+      <button
+        class="px-2 py-1 border border-gray-400 rounded-r"
+        @click="increaseHam"
+      >
+        +
+      </button>
+    </div>
     <button
-      @click="criarEtiqueta"
-      type="submit"
-      class="border border-gray-300 rounded-xl inline-flex items-center justify-center py-2 px-3 border border-emerald-400rounded-xl bg-white text-gray-800 hover:text-yellow-500 text-sm font-semibold transition"
+      class="mt-4 block w-full rounded-lg bg-white hover:bg-gray-100 px-5 py-3 text-sm font-bold text-emerald-500"
+      @click="atualizarEstoque"
     >
-      Criar etiqueta
+      Atualizar estoque
     </button>
   </div>
 </template>
@@ -52,53 +79,91 @@ import axios from "axios";
 export default {
   data() {
     return {
-      etiquetas: [],
-      nome: "",
-      cor: "#000000",
+      estoque: {
+        coca: 0,
+        cerveja: 0,
+        hamburguer: 0,
+      },
     };
   },
   methods: {
-    criarEtiqueta() {
+    atualizarEstoque() {
       axios
-        .post("http://localhost:8000/etiqueta/", {
-          nome: this.nome,
-          cor: this.cor,
-        })
+        .get("http://localhost:8000/estoque/1")
         .then((response) => {
-          console.log(response.data);
+          const estoqueAtual = response.data;
+          const novoEstoque = {
+            coca: this.estoque.coca + estoqueAtual.coca,
+            cerveja: this.estoque.cerveja + estoqueAtual.cerveja,
+            hamburguer: this.estoque.hamburguer + estoqueAtual.hamburguer,
+          };
+
+          if (
+            this.estoque.coca > 0 ||
+            this.estoque.cerveja > 0 ||
+            this.estoque.hamburguer > 0
+          ) {
+            axios
+              .patch("http://localhost:8000/patchEstoque/", novoEstoque)
+              .then((response) => {
+                console.log(response);
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+            setTimeout(() => {
+              alert("Estoque atualizado com sucesso!");
+              window.location.reload();
+            }, 300);
+          } else {
+            alert("Não é possível atualizar o estoque com valores zerados.");
+          }
         })
         .catch((error) => {
           console.log(error);
         });
     },
-    listarEtiquetas() {
-      axios
-        .get("http://localhost:8000/etiqueta")
-        .then((response) => {
-          this.etiquetas = response.data;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    updateCoca() {
+      this.estoque.coca = this.estoque.coca < 0 ? 0 : this.estoque.coca;
+      window.localStorage.setItem("coca", this.estoque.coca);
     },
-  },
-  mounted() {
-    this.listarEtiquetas();
+    updateBeer() {
+      this.estoque.cerveja =
+        this.estoque.cerveja < 0 ? 0 : this.estoque.cerveja;
+      window.localStorage.setItem("cerveja", this.estoque.cerveja);
+    },
+    updateHam() {
+      this.estoque.hamburguer =
+        this.estoque.hamburguer < 0 ? 0 : this.estoque.hamburguer;
+      window.localStorage.setItem("hamburguer", this.estoque.hamburguer);
+    },
+    increaseCocaCola() {
+      this.estoque.coca++;
+      windows.localStorage.setItem("coca", this.estoque.coca);
+    },
+    decreaseCocaCola() {
+      this.estoque.coca--;
+      this.updateCoca();
+      windows.localStorage.setItem("coca", this.estoque.coca);
+    },
+    increaseBeer() {
+      this.estoque.cerveja++;
+      windows.localStorage.setItem("cerveja", this.estoque.cerveja);
+    },
+    decreaseBeer() {
+      this.estoque.cerveja--;
+      this.updateBeer();
+      windows.localStorage.setItem("cerveja", this.estoque.cerveja);
+    },
+    increaseHam() {
+      this.estoque.hamburguer++;
+      windows.localStorage.setItem("hamburguer", this.estoque.hamburguer);
+    },
+    decreaseHam() {
+      this.estoque.hamburguer--;
+      this.updateHam();
+      windows.localStorage.setItem("hamburguer", this.estoque.hamburguer);
+    },
   },
 };
 </script>
-
-<style>
-input[type="color"]::-webkit-color-swatch-wrapper {
-  padding: 0;
-}
-
-input[type="color"]::-webkit-color-swatch {
-  border: none;
-  border-radius: 50%;
-}
-
-label[for="cor"]:hover {
-  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
-}
-</style>

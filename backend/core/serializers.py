@@ -99,6 +99,7 @@ class ProdutoSerializer(ModelSerializer):
             "descricao",
             "criado_em",
             "atualizado_em",
+            "etiqueta",
         )
 
 
@@ -112,7 +113,6 @@ class EtiquetaSerializer(ModelSerializer):
             "id",
             "nome",
             "cor",
-            "produto",
         )
 
 
