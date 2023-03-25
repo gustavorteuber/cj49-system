@@ -46,10 +46,10 @@ export default {
 
 <template>
   <body
-    class="relative bg-gradient-to-r from-teal-100 to-lime-100 overflow-hidden max-h-screen"
+    class="relative bg-gradient-to-r from-gray-300 to-neutral-300 overflow-hidden max-h-screen"
   >
     <header
-      class="fixed right-0 top-0 left-60 bg-gradient-to-r from-teal-100 to-lime-100 py-3 px-4 h-16"
+      class="fixed right-0 top-0 left-60 bg-gradient-to-r from-gray-300 to-neutral-300 py-3 px-4 h-16"
     >
       <div class="max-w-4xl mx-auto">
         <div class="flex items-center justify-between">
@@ -64,7 +64,7 @@ export default {
         <div class="flex-grow">
           <div class="px-4 py-6 text-center border-b">
             <h1 class="text-xl font-bold leading-none">
-              <span class="text-emerald-700">Proative</span> App
+              <span class="text-red-700">CJ49</span> App
             </h1>
           </div>
           <div class="p-4">
@@ -72,7 +72,7 @@ export default {
               <li>
                 <a
                   href="javascript:void(0)"
-                  class="flex items-center bg-emerald-200 rounded-xl font-bold text-sm text-emerald-900 py-3 px-4"
+                  class="flex items-center bg-red-200 rounded-xl font-bold text-sm text-red-900 py-3 px-4"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -91,7 +91,7 @@ export default {
               <li>
                 <a
                   href="javascript:void(0)"
-                  class="flex bg-white hover:bg-emerald-50 rounded-xl font-bold text-sm text-gray-900 py-3 px-4"
+                  class="flex bg-white hover:bg-red-50 rounded-xl font-bold text-sm text-gray-900 py-3 px-4"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -110,7 +110,7 @@ export default {
               <li>
                 <a
                   href="javascript:void(0)"
-                  class="flex bg-white hover:bg-emerald-50 rounded-xl font-bold text-sm text-gray-900 py-3 px-4"
+                  class="flex bg-white hover:bg-red-50 rounded-xl font-bold text-sm text-gray-900 py-3 px-4"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -129,7 +129,7 @@ export default {
               <li>
                 <a
                   href="javascript:void(0)"
-                  class="flex bg-white hover:bg-emerald-50 rounded-xl font-bold text-sm text-gray-900 py-3 px-4"
+                  class="flex bg-white hover:bg-red-50 rounded-xl font-bold text-sm text-gray-900 py-3 px-4"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -170,7 +170,7 @@ export default {
             </div>
 
             <div class="flex flex-col pl-3">
-              <div class="text-sm text-emerald-600">{{ username }}</div>
+              <div class="text-sm text-red-600">{{ username }}</div>
               <span class="text-xs text-[#acacb0] font-light tracking-tight">
                 {{ email }}
               </span>
@@ -190,16 +190,14 @@ export default {
 
             <div class="grid grid-cols-2 gap-x-20">
               <div>
-                <h2
-                  class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-lime-600 mb-4"
-                >
+                <h2 class="text-2xl font-bold text-gray-500 mb-4">
                   Status do estoque
                 </h2>
 
                 <div class="grid grid-cols-2 gap-4">
                   <div class="col-span-2">
                     <div
-                      class="p-4 bg-gradient-to-r from-teal-200 to-lime-200 rounded-xl"
+                      class="p-4 bg-gradient-to-r from-red-700 to-rose-200 rounded-xl"
                     >
                       <div class="font-bold text-xl text-gray-800 leading-none">
                         Olá, <br />{{ username }}
@@ -215,16 +213,14 @@ export default {
                     </div>
                   </div>
                   <div class="col-span-2">
-                    <div class="p-4 bg-purple-100 rounded-xl text-gray-800">
+                    <div class="p-4 bg-gray-100 rounded-xl text-gray-800">
                       <estoque />
                     </div>
                   </div>
                 </div>
               </div>
               <div>
-                <h2
-                  class="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-lime-600 text-2xl font-bold mb-4"
-                >
+                <h2 class="text-gray-500 text-2xl font-bold mb-4">
                   Atualizar estoque
                 </h2>
 
