@@ -13,6 +13,8 @@
         <div class="font-bold">{{ produto.nome }}</div>
         <div class="text-gray-600">{{ produto.descricao }}</div>
         <div class="text-gray-600">{{ produto.preco }}</div>
+        <div class="text-gray-600">{{ produto.etiqueta }}</div>
+
         <button
           class="bg-blue-500 text-white px-4 py-2 rounded-lg mt-2"
           @click="editar(produto.id)"
@@ -37,6 +39,7 @@ export default {
   data() {
     return {
       produtos: [],
+      etiquetas: [],
     };
   },
   mounted() {
@@ -46,6 +49,16 @@ export default {
     listarProdutos() {
       axios
         .get("http://localhost:8000/produto/")
+        .then((response) => {
+          this.produtos = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    listarEtiquetas() {
+      axios
+        .get("http://localhost:8000/etiqueta/")
         .then((response) => {
           this.produtos = response.data;
         })

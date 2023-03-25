@@ -8,6 +8,7 @@
             class="w-4 h-4 rounded-full"
           ></div>
           <div>{{ etiqueta.nome }}</div>
+          <button @click="excluirEtiqueta(etiqueta.id)">X</button>
         </div>
       </li>
     </ul>
@@ -65,6 +66,7 @@ export default {
         })
         .then((response) => {
           console.log(response.data);
+          location.reload();
         })
         .catch((error) => {
           console.log(error);
@@ -75,6 +77,17 @@ export default {
         .get("http://localhost:8000/etiqueta")
         .then((response) => {
           this.etiquetas = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    excluirEtiqueta(id) {
+      axios
+        .delete(`http://localhost:8000/etiqueta/${id}`)
+        .then((response) => {
+          console.log(response.data);
+          location.reload();
         })
         .catch((error) => {
           console.log(error);

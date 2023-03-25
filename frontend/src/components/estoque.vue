@@ -5,7 +5,7 @@
     >
       Estoque:
     </h1>
-    <div class="bg-white shadow-lg rounded-lg p-10 m-5">
+    <div class="bg-white rounded-lg p-10 m-5">
       <label class="mb-4 block text-black text-lg font-bold mb-2"
         >Coca-Cola: {{ estoque.coca }}</label
       >

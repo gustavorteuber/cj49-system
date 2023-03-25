@@ -58,7 +58,7 @@ class Produto(models.Model):
     descricao = models.TextField()
     criado_em = models.DateTimeField(auto_now_add=True)
     atualizado_em = models.DateTimeField(auto_now=True)
-    produto = models.ForeignKey(Etiqueta, on_delete=models.CASCADE, null=True)
+    etiqueta = models.ForeignKey(Etiqueta, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.nome

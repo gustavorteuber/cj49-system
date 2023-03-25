@@ -1,12 +1,14 @@
 <script>
 import { mapState } from "pinia";
 import { useAuthStore } from "./stores/auth";
-import estoque from "../master/stock.vue";
-import update from "../master/update.vue";
+import estoque from "../master/etiqueta.vue";
+import pedido from "../pedido.vue";
+import update from "../produtos.vue";
 import notify from "../master/notify.vue";
+import istock from "../estoque.vue";
 import axios from "axios";
 export default {
-  components: { estoque, notify, update },
+  components: { estoque, notify, update, istock, pedido },
   data() {
     return {
       showDropDown: false,
@@ -235,6 +237,13 @@ export default {
             </div>
           </div>
         </div>
+        <div class="rounded-xl"></div>
+        <body
+          class="relative bg-gradient-to-r from-teal-100 to-lime-100 overflow-hidden max-h-screen"
+        >
+          <istock />
+        </body>
+        <pedido />
       </div>
     </main>
   </body>

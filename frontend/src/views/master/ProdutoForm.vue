@@ -26,6 +26,27 @@
         ></textarea>
       </div>
       <div class="mb-4">
+        <label class="font-semibold" for="etiqueta">Etiqueta:</label>
+        <select id="etiqueta" v-model="produto.etiqueta">
+          <option disabled value="">Selecione uma etiqueta</option>
+          <option
+            v-for="etiqueta in etiquetas"
+            :key="etiqueta.id"
+            :value="etiqueta.id"
+          >
+            {{ etiqueta.nome }} ({{ etiqueta.cor }})
+          </option>
+        </select>
+      </div>
+      <div class="mb-4">
+        <label class="block font-medium mb-2">Quantidade em Estoque</label>
+        <input
+          class="border border-gray-400 rounded-lg p-2 w-full"
+          v-model="produto.estoque"
+          required
+        />
+      </div>
+      <div class="mb-4">
         <button
           class="bg-emerald-500 text-white px-4 py-2 rounded-lg"
           type="submit"
@@ -52,7 +73,9 @@ export default {
         nome: "",
         preco: "",
         descricao: "",
+        etiqueta: "",
       },
+      etiquetas: [],
       id: null,
       titulo: "",
       botao: "",
@@ -68,6 +91,7 @@ export default {
       this.titulo = "Novo produto";
       this.botao = "Adicionar";
     }
+    this.carregarEtiquetas();
   },
   methods: {
     carregarProduto() {
@@ -75,6 +99,16 @@ export default {
         .get(`http://localhost:8000/produto/${this.id}/`)
         .then((response) => {
           this.produto = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    carregarEtiquetas() {
+      axios
+        .get("http://localhost:8000/etiqueta/")
+        .then((response) => {
+          this.etiquetas = response.data;
         })
         .catch((error) => {
           console.log(error);

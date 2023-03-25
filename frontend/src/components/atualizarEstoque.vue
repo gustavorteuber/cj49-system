@@ -5,7 +5,7 @@
     >
       Atualizar estoque:
     </h1>
-    <div class="bg-white shadow-lg rounded-lg p-10 m-5">
+    <div class="bg-white rounded-lg p-10 m-5">
       <label class="block text-black font-bold mb-2">Coca-Cola (R$5)</label>
       <div class="flex items-center">
         <button
