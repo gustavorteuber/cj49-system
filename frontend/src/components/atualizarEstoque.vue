@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div>
     <h1
       class="mt-4 text-center text-2xl font-bold text-black sm:text-3xl text-black font-bold"
@@ -173,6 +173,83 @@ export default {
       this.updateHam();
       windows.localStorage.setItem("hamburguer", this.estoque.hamburguer);
     },
+  },
+};
+</script> -->
+
+<template>
+  <div class="p-4">
+    <label class="block font-bold mb-2" for="produto">Produto:</label>
+    <select
+      class="border border-gray-400 p-2 mb-4"
+      id="produto"
+      v-model="selectedProduto"
+    >
+      <option v-for="produto in produtos" :key="produto.id" :value="produto.id">
+        {{ produto.nome }}
+      </option>
+    </select>
+
+    <label class="block font-bold mb-2" for="quantidade">Quantidade:</label>
+    <input
+      class="border border-gray-400 p-2 mb-4"
+      type="number"
+      id="quantidade"
+      v-model="quantidade"
+    />
+
+    <button
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      @click="adicionarPedido"
+    >
+      Adicionar Pedido
+    </button>
+  </div>
+</template>
+
+<script>
+import axios from "axios";
+
+export default {
+  data() {
+    return {
+      selectedProduto: null,
+      quantidade: null,
+      produtos: [],
+    };
+  },
+  methods: {
+    adicionarPedido() {
+      axios
+        .post("http://localhost:8000/pedido/", {
+          produto: this.selectedProduto,
+          quantidade: this.quantidade,
+        })
+        .then((response) => {
+          this.atualizarEstoque();
+          this.selectedProduto = null;
+          this.quantidade = null;
+          alert("Pedido adicionado com sucesso!");
+        })
+        .catch((error) => {
+          console.error(error);
+          alert("Ocorreu um erro ao adicionar o pedido.");
+        });
+    },
+    atualizarEstoque() {
+      axios
+        .get("http://localhost:8000/estoque/")
+        .then((response) => {
+          this.produtos = response.data.map((estoque) => estoque.produto);
+        })
+        .catch((error) => {
+          console.error(error);
+          alert("Ocorreu um erro ao atualizar o estoque.");
+        });
+    },
+  },
+  mounted() {
+    this.atualizarEstoque();
   },
 };
 </script>
