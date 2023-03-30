@@ -6,9 +6,10 @@ import pedido from "../pedido.vue";
 import update from "../produtos.vue";
 import notify from "../master/notify.vue";
 import istock from "../estoque.vue";
+import ProdutoList from "./ProdutoList.vue";
 import axios from "axios";
 export default {
-  components: { estoque, notify, update, istock, pedido },
+  components: { estoque, notify, update, istock, pedido, ProdutoList },
   data() {
     return {
       showDropDown: false,
@@ -53,7 +54,9 @@ export default {
     >
       <div class="max-w-4xl mx-auto">
         <div class="flex items-center justify-between">
-          <div class="text-lg font-bold">Bem-vindo ao seu negocio</div>
+          <div class="text-lg font-bold">
+            Bem-vindo ao Capitulo Joinville Virtual
+          </div>
           <notify />
         </div>
       </div>
@@ -197,25 +200,13 @@ export default {
                 <div class="grid grid-cols-2 gap-4">
                   <div class="col-span-2">
                     <div
-                      class="p-4 bg-gradient-to-r from-red-700 to-rose-200 rounded-xl"
+                      class="border border-gray-300 rounded-xl overflow-y-auto"
                     >
-                      <div class="font-bold text-xl text-gray-800 leading-none">
-                        Olá, <br />{{ username }}
-                      </div>
-                      <div class="mt-5">
-                        <button
-                          type="button"
-                          class="inline-flex items-center justify-center py-2 px-3 rounded-xl bg-white text-gray-800 hover:text-green-500 text-sm font-semibold transition"
-                        >
-                          Gerenciar perfil
-                        </button>
-                      </div>
+                      <ProdutoList />
                     </div>
                   </div>
                   <div class="col-span-2">
-                    <div class="p-4 bg-gray-100 rounded-xl text-gray-800">
-                      <estoque />
-                    </div>
+                    <!-- <div class="p-4 bg-gray-100 rounded-xl text-gray-800"></div> -->
                   </div>
                 </div>
               </div>
@@ -229,17 +220,22 @@ export default {
                 >
                   <update />
                 </div>
+                <div class="m-3"></div>
+                <div
+                  class="p-4 bg-white border border-gray-300 rounded-xl text-gray-800"
+                >
+                  <estoque />
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="rounded-xl"></div>
         <body
           class="relative bg-gradient-to-r from-teal-100 to-lime-100 overflow-hidden max-h-screen"
         >
-          <istock />
+          <!-- <istock /> -->
         </body>
-        <pedido />
+        <!-- <pedido /> -->
       </div>
     </main>
   </body>

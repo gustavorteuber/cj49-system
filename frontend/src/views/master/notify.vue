@@ -34,10 +34,10 @@ export default {
   <div class="relative">
     <button
       @click="toggleOpen"
-      class="relative z-10 block p-2 text-gray-700 border border-transparent rounded-md text-neutral-800 focus:border-red-500 focus:ring-opacity-40 focus:ring-red-300 dark:focus:ring-red-400 focus:ring bg-red-100 focus:outline-none"
+      class="relative z-10 block p-2 text-gray-700 border border-transparent rounded-md text-neutral-800 focus:border-gray-500 focus:ring-opacity-40 focus:ring-gray-300 dark:focus:ring-gray-400 focus:ring bg-gray-100 focus:outline-none"
     >
       <svg
-        class="w-5 h-5 text-red-800"
+        class="w-5 h-5 text-gray-800"
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -62,7 +62,7 @@ export default {
       </div>
       <a
         href="#"
-        class="block py-2 font-bold text-center text-red-800 bg-gradient-to-r from-rose-200 to-red-200 hover:underline"
+        class="block py-2 font-bold text-center text-gray-800 bg-gradient-to-r from-rose-200 to-gray-200 hover:underline"
         >Ver todas</a
       >
     </div>

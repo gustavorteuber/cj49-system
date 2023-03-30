@@ -48,7 +48,7 @@ export default {
     class="flex items-center px-4 py-3 -mx-2 transition-colors duration-300 transform border-b border-gray-700 hover:bg-gray-50"
   >
     <p class="mx-2 text-sm text-neutral-800">
-      <span class="font-bold text-emerald-500" href="#"
+      <span class="font-bold text-red-500" href="#"
         >DETALHES DO PEDIDO {{ tarefa.id }}</span
       >
       Foram pedidos: {{ tarefa.coca }} unidades de Refrigerante <br />

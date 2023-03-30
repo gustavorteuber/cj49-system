@@ -1,8 +1,8 @@
 <script>
-import Plist from "../components/ProdutoList.vue";
+// import Plist from "../components/ProdutoList.vue";
 import Pform from "../components/ProdutoForm.vue";
 export default {
-  components: { Plist, Pform },
+  components: { Pform },
   data() {
     return {};
   },
@@ -10,6 +10,6 @@ export default {
 </script>
 
 <template>
-  <Plist />
+  <!-- <Plist /> -->
   <Pform />
 </template>

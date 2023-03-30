@@ -9,6 +9,7 @@ from core.serializers import (
     EstoqueSerializer,
     PedidoSerializer,
     ProdutoSerializer,
+    DetailProdutoSerializer,
     EtiquetaSerializer
 )
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -45,6 +46,11 @@ class ProdutoViewSet(ModelViewSet):
     queryset = Produto.objects.all()
     serializer_class = ProdutoSerializer
     permission_classes = [AllowAny]
+
+    def get_serializer_class(self):
+        if self.action in ["list", "retrieve"]:
+            return DetailProdutoSerializer
+        return ProdutoSerializer
 
 
 class EstoqueViewSet(ModelViewSet):

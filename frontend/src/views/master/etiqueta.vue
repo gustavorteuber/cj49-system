@@ -8,7 +8,9 @@
             class="w-4 h-4 rounded-full"
           ></div>
           <div>{{ etiqueta.nome }}</div>
-          <button @click="excluirEtiqueta(etiqueta.id)">X</button>
+          <button @click="excluirEtiqueta(etiqueta.id)">
+            <i class="fas fa-trash"></i>
+          </button>
         </div>
       </li>
     </ul>
@@ -26,21 +28,28 @@
           placeholder="Digite o nome da etiqueta que deseja criar"
         />
 
-        <label class="font-semibold" for="cor">Cor:</label>
-        <input type="color" id="cor" v-model="cor" class="hidden font-medium" />
+        <div class="flex items-center">
+          <label class="font-semibold" for="cor">Cor:</label>
+          <input
+            type="color"
+            id="cor"
+            v-model="cor"
+            class="hidden font-medium"
+          />
 
-        <label
-          for="cor"
-          class="bg-white rounded-full cursor-pointer inline-block w-8 h-8 border-gray-300 border-2"
-          style="background-color: {{ cor }};"
-        ></label>
+          <label
+            for="cor"
+            class="bg-white rounded-full cursor-pointer inline-block w-8 h-8 border-gray-300 border-2 ml-2"
+            style="background-color: {{ cor }};"
+          ></label>
+        </div>
       </form>
     </div>
     <div class="m-7"></div>
     <button
       @click="criarEtiqueta"
       type="submit"
-      class="border border-gray-300 rounded-xl inline-flex items-center justify-center py-2 px-3 border border-emerald-400rounded-xl bg-white text-gray-800 hover:text-yellow-500 text-sm font-semibold transition"
+      class="text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
     >
       Criar etiqueta
     </button>

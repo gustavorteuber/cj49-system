@@ -19,21 +19,30 @@
         />
       </div>
       <div class="mb-4">
-        <label class="block font-medium mb-2">Descrição</label>
-        <textarea
+        <label class="block font-medium mb-2">Etiqueta</label>
+        <select
           class="border border-gray-400 rounded-lg p-2 w-full"
-          v-model="produto.descricao"
-        ></textarea>
+          v-model="produto.etiqueta"
+        >
+          <option value="" disabled selected>Selecione uma etiqueta</option>
+          <option
+            v-for="etiqueta in etiquetas"
+            :key="etiqueta.id"
+            :value="etiqueta.id"
+          >
+            {{ etiqueta.nome }}
+          </option>
+        </select>
       </div>
       <div class="mb-4">
         <button
-          class="bg-emerald-500 text-white px-4 py-2 rounded-lg"
+          class="text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
           type="submit"
         >
           {{ botao }}
         </button>
         <router-link
-          class="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg ml-2"
+          class="text-gray-700 hover:text-white border border-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
           to="/produto"
           >Cancelar</router-link
         >
@@ -52,7 +61,9 @@ export default {
         nome: "",
         preco: "",
         descricao: "",
+        etiqueta: null,
       },
+      etiquetas: [],
       id: null,
       titulo: "",
       botao: "",
@@ -68,6 +79,7 @@ export default {
       this.titulo = "Novo produto";
       this.botao = "Adicionar";
     }
+    this.carregarEtiquetas();
   },
   methods: {
     carregarProduto() {
@@ -79,6 +91,14 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+    },
+    async carregarEtiquetas() {
+      try {
+        const response = await axios.get("http://localhost:8000/etiqueta/");
+        this.etiquetas = response.data;
+      } catch (error) {
+        console.log(error);
+      }
     },
     async salvar() {
       if (this.id) {

@@ -78,12 +78,7 @@ class EstoqueSerializer(ModelSerializer):
     class Meta:
         model = Estoque
         read_only_fields = ("id",)
-        fields = (
-            "id",
-            "coca",
-            "cerveja",
-            "hamburguer",
-        )
+        fields = "__all__"
 
 
 class ProdutoSerializer(ModelSerializer):
@@ -92,15 +87,14 @@ class ProdutoSerializer(ModelSerializer):
     class Meta:
         model = Produto
         read_only_fields = ("id",)
-        fields = (
-            "id",
-            "nome",
-            "preco",
-            "descricao",
-            "criado_em",
-            "atualizado_em",
-            "etiqueta",
-        )
+        fields = "__all__"
+
+
+class DetailProdutoSerializer(ModelSerializer):
+    class Meta:
+        model = Produto
+        fields = "__all__"
+        depth = 1
 
 
 class EtiquetaSerializer(ModelSerializer):
@@ -109,11 +103,7 @@ class EtiquetaSerializer(ModelSerializer):
     class Meta:
         model = Etiqueta
         read_only_fields = ("id",)
-        fields = (
-            "id",
-            "nome",
-            "cor",
-        )
+        fields = "__all__"
 
 
 class PedidoSerializer(ModelSerializer):
@@ -122,11 +112,4 @@ class PedidoSerializer(ModelSerializer):
     class Meta:
         model = Pedido
         read_only_fields = ("id",)
-        fields = (
-            "id",
-            "usuario",
-            "coca",
-            "cerveja",
-            "hamburguer",
-            "data",
-        )
+        fields = "__all__"

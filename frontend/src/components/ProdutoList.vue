@@ -13,6 +13,18 @@
         <div class="font-bold">{{ produto.nome }}</div>
         <div class="text-gray-600">{{ produto.descricao }}</div>
         <div class="text-gray-600">{{ produto.preco }}</div>
+        <span
+          class="flex items-center border rounded-full w-24 pr-2 justify-center"
+          ><div
+            :style="{
+              backgroundColor: produto.etiqueta.cor
+                ? produto.etiqueta.cor
+                : '#000000',
+            }"
+            class="rounded-full w-2.5 h-2.5 block mr-2"
+          ></div>
+          {{ produto.etiqueta.nome }}</span
+        >
         <button
           class="bg-blue-500 text-white px-4 py-2 rounded-lg mt-2"
           @click="editar(produto.id)"
