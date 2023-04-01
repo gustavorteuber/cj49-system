@@ -1,31 +1,37 @@
 <template>
-  <div>
-    <h1
-      class="mt-4 text-center text-2xl font-bold text-black sm:text-3xl font-bold"
+  <div class="flex flex-wrap">
+    <div
+      v-for="produto in produtos"
+      :key="produto.id"
+      class="w-full md:w-1/2 p-3"
     >
-      Estoque:
-    </h1>
-    <div class="bg-white rounded-lg p-10 m-5">
-      <label class="mb-4 block text-black text-lg font-bold mb-2"
-        >Coca-Cola: {{ estoque.coca }}</label
-      >
-      <label class="mb-4 block text-black text-lg font-bold mb-2"
-        >Cerveja: {{ estoque.cerveja }}</label
-      >
-      <label class="mb-4 block text-black text-lg font-bold mb-2"
-        >Hamburguer: {{ estoque.hamburguer }}</label
-      >
+      <div class="bg-white rounded-lg shadow-lg p-5">
+        <h2 class="text-lg font-bold mb-2">{{ produto.nome }}</h2>
+        <p class="text-gray-700 mb-4">{{ produto.descricao }}</p>
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+            <input
+              type="number"
+              v-model="produto.quantidade"
+              class="form-input w-20"
+            />
+            <span class="ml-2 text-gray-700">x R$ {{ produto.preco }}</span>
+          </div>
+          <button
+            @click="fazerPedido(produto)"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Pedir
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="w-full p-3">
       <button
-        class="mt-4 block w-full rounded-lg bg-emerald-600 hover:bg-emerald-700 px-5 py-3 text-sm font-medium text-white"
-        @click="gerarPlanilha"
+        @click="fazerTodosPedidos"
+        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
       >
-        Gerar planilha
-      </button>
-      <button
-        class="mt-4 block w-full rounded-lg bg-red-600 hover:bg-red-700 px-5 py-3 text-sm font-medium text-white"
-        @click="zerarEstoque"
-      >
-        Zerar estoque
+        Fazer todos os pedidos
       </button>
     </div>
   </div>
@@ -33,157 +39,55 @@
 
 <script>
 import axios from "axios";
-import ExcelJS from "exceljs";
 
 export default {
-  name: "Estoque",
   data() {
     return {
-      estoque: {
-        coca: 0,
-        cerveja: 0,
-        hamburguer: 0,
-      },
-      pedidos: [],
+      produtos: [],
     };
   },
-  mounted() {
-    this.carregarEstoque();
-  },
   methods: {
-    carregarEstoque() {
-      axios
-        .get("http://localhost:8000/estoque/1")
-        .then((response) => {
-          this.estoque = response.data;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
-    zerarEstoque() {
-      const estoqueZerado = {
-        coca: 0,
-        cerveja: 0,
-        hamburguer: 0,
+    fazerPedido(produto) {
+      const pedido = {
+        produto: produto.id,
+        quantidade: produto.quantidade,
       };
 
       axios
-        .patch("http://localhost:8000/patchEstoque/", estoqueZerado)
+        .post("http://localhost:8000/pedido/", pedido)
         .then((response) => {
-          console.log("Estoque zerado com sucesso:", response.data);
-          alert("Estoque zerado com sucesso!");
-          location.reload();
-        })
-        .catch((error) => {
-          console.log("Erro ao zerar estoque:", error);
-          alert("Erro ao zerar estoque.");
-        });
-    },
-
-    gerarPlanilha() {
-      axios
-        .get("http://localhost:8000/pedido")
-        .then((response) => {
-          const pedidos = response.data;
-          let totalPedidos = 0;
-
-          // Criar nova planilha
-          const workbook = new ExcelJS.Workbook();
-          const sheet = workbook.addWorksheet("Pedidos");
-
-          // Definir cabeçalhos das colunas
-          sheet.columns = [
-            { header: "Produto", key: "produto", width: 15 },
-            { header: "Quantidade", key: "quantidade", width: 15 },
-            { header: "Valor Unitário", key: "valorUnitario", width: 15 },
-            { header: "Valor Total", key: "valorTotal", width: 15 },
-          ];
-
-          // Preencher planilha com dados dos pedidos
-          pedidos.forEach((pedido) => {
-            const linhaPedido = {
-              produto: "",
-              quantidade: "",
-              valorUnitario: "",
-              valorTotal: "",
-            };
-
-            if (pedido.coca >= 0) {
-              linhaPedido.produto = "Coca";
-              linhaPedido.quantidade = pedido.coca;
-              linhaPedido.valorUnitario = "R$5.00";
-              linhaPedido.valorTotal = `R$${(pedido.coca * 5).toFixed(2)}`;
-              sheet.addRow(linhaPedido);
-              totalPedidos += pedido.coca * 5;
-            }
-
-            if (pedido.cerveja >= 0) {
-              linhaPedido.produto = "Cerveja";
-              linhaPedido.quantidade = pedido.cerveja;
-              linhaPedido.valorUnitario = "R$12.00";
-              linhaPedido.valorTotal = `R$${(pedido.cerveja * 12).toFixed(2)}`;
-              sheet.addRow(linhaPedido);
-              totalPedidos += pedido.cerveja * 12;
-            }
-
-            if (pedido.hamburguer >= 0) {
-              linhaPedido.produto = "Hamburguer";
-              linhaPedido.quantidade = pedido.hamburguer;
-              linhaPedido.valorUnitario = "R$15.00";
-              linhaPedido.valorTotal = `R$${(pedido.hamburguer * 15).toFixed(
-                2
-              )}`;
-              sheet.addRow(linhaPedido);
-              totalPedidos += pedido.hamburguer * 15;
-            }
-
-            if (linhaPedido.produto !== "") {
-              sheet.addRow({});
-            } else {
-              // Tratar valores zerados no banco de dados
-              linhaPedido.produto = "Produto não informado";
-              linhaPedido.quantidade = 0;
-              linhaPedido.valorUnitario = "";
-              linhaPedido.valorTotal = "";
-              sheet.addRow(linhaPedido);
-            }
-          });
-
-          // Adicionar linha com o valor total de todos os pedidos somados
-          sheet.addRow({});
-          sheet.addRow({
-            produto: "Total",
-            quantidade: "",
-            valorUnitario: "",
-            valorTotal: `R$${totalPedidos.toFixed(2)}`,
-          });
-
-          // Salvar planilha em buffer
-          workbook.xlsx.writeBuffer().then((buffer) => {
-            // Criar blob com buffer da planilha
-            const blob = new Blob([buffer], {
-              type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-            });
-
-            // Criar objeto URL para download da planilha
-            const url = window.URL.createObjectURL(blob);
-
-            // Criar link para download e clicar nele para iniciar o download
-            const link = document.createElement("a");
-            link.href = url;
-            link.download = "pedidos.xlsx";
-            document.body.appendChild(link);
-            link.click();
-
-            // Limpar objeto URL da memória
-            window.URL.revokeObjectURL(url);
-          });
+          console.log(response);
+          alert("Pedido realizado com sucesso!");
+          window.location.reload();
         })
         .catch((error) => {
           console.log(error);
+          alert("Erro ao fazer o pedido.");
         });
     },
+    fazerTodosPedidos() {
+      this.produtos.forEach((produto) => {
+        this.fazerPedido(produto);
+      });
+    },
+  },
+  mounted() {
+    axios
+      .get("http://localhost:8000/produto/")
+      .then((response) => {
+        this.produtos = response.data.map((produto) => {
+          return {
+            id: produto.id,
+            nome: produto.nome,
+            descricao: produto.descricao,
+            preco: produto.preco,
+            quantidade: 0,
+          };
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
 };
 </script>

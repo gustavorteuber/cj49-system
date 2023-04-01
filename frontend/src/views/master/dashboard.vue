@@ -185,58 +185,62 @@ export default {
 
     <main class="ml-60 pt-16 max-h-screen overflow-auto">
       <div class="px-6 py-8">
-        <div class="max-w-4xl mx-auto">
-          <div class="bg-white rounded-3xl p-8 mb-5">
-            <div class="flex items-stretch">
-              <div class="flex flex-nowrap -space-x-3"></div>
-            </div>
+        <!-- <div class="max-w-4xl mx-auto"> -->
+        <div class="bg-white rounded-3xl p-8 mb-5">
+          <div class="flex items-stretch">
+            <div class="flex flex-nowrap -space-x-3"></div>
+          </div>
 
-            <div class="grid grid-cols-2 gap-x-20">
-              <div>
-                <h2 class="text-2xl font-bold text-gray-500 mb-4">
-                  Status do estoque
-                </h2>
+          <div class="grid grid-cols-2 gap-x-20">
+            <div>
+              <h2 class="text-2xl font-bold text-gray-500 mb-4">
+                Status do estoque
+              </h2>
 
-                <div class="grid grid-cols-2 gap-4">
-                  <div class="col-span-2">
-                    <div
-                      class="border border-gray-300 rounded-xl overflow-y-auto"
-                    >
-                      <ProdutoList />
-                    </div>
+              <div class="grid grid-cols-2 gap-4">
+                <div class="col-span-2">
+                  <div
+                    class="border border-gray-300 rounded-xl overflow-y-auto"
+                  >
+                    <ProdutoList />
                   </div>
-                  <div class="col-span-2">
-                    <!-- <div class="p-4 bg-gray-100 rounded-xl text-gray-800"></div> -->
-                  </div>
+                </div>
+                <div class="col-span-2">
+                  <!-- <div class="p-4 bg-gray-100 rounded-xl text-gray-800"></div> -->
                 </div>
               </div>
-              <div>
-                <h2 class="text-gray-500 text-2xl font-bold mb-4">
-                  Atualizar estoque
-                </h2>
+            </div>
+            <div>
+              <h2 class="text-gray-500 text-2xl font-bold mb-4">
+                Atualizar estoque
+              </h2>
 
-                <div
-                  class="p-4 bg-white border border-gray-300 rounded-xl text-gray-800"
-                >
-                  <update />
-                </div>
-                <div class="m-3"></div>
-                <div
-                  class="p-4 bg-white border border-gray-300 rounded-xl text-gray-800"
-                >
-                  <estoque />
-                </div>
+              <div
+                class="p-4 bg-white border border-gray-300 rounded-xl text-gray-800"
+              >
+                <update />
+              </div>
+              <div class="m-3"></div>
+
+              <div
+                class="p-4 bg-white border border-gray-300 rounded-xl text-gray-800"
+              >
+                <estoque />
               </div>
             </div>
           </div>
         </div>
-        <body
-          class="relative bg-gradient-to-r from-teal-100 to-lime-100 overflow-hidden max-h-screen"
-        >
-          <!-- <istock /> -->
-        </body>
-        <!-- <pedido /> -->
       </div>
+      <body
+        class="relative bg-gradient-to-r from-teal-100 to-lime-100 overflow-hidden max-h-screen"
+      ></body>
+      <div class="px-6">
+        <div class="bg-white rounded-3xl p-8 mb-5">
+          <istock />
+          <!-- <pedido /> -->
+        </div>
+      </div>
+      <!-- </div> -->
     </main>
   </body>
 </template>

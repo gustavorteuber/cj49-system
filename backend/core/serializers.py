@@ -80,6 +80,12 @@ class EstoqueSerializer(ModelSerializer):
         read_only_fields = ("id",)
         fields = "__all__"
 
+class DetailEstoqueSerializer(ModelSerializer):
+    class Meta:
+        model = Estoque
+        fields = "__all__"
+        depth = 1
+
 
 class ProdutoSerializer(ModelSerializer):
     id = serializers.IntegerField(read_only=True, required=False)

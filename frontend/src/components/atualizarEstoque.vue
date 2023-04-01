@@ -1,83 +1,107 @@
-<!-- <template>
-  <div>
-    <h1
-      class="mt-4 text-center text-2xl font-bold text-black sm:text-3xl text-black font-bold"
-    >
-      Atualizar estoque:
-    </h1>
-    <div class="bg-white rounded-lg p-10 m-5">
-      <label class="block text-black font-bold mb-2">Coca-Cola (R$5)</label>
-      <div class="flex items-center">
-        <button
-          class="px-2 py-1 border border-gray-400 rounded-l"
-          @click="decreaseCocaCola"
-        >
-          -
-        </button>
-        <input
-          type="number"
-          class="px-2 py-1 border border-gray-400 text-center flex-1"
-          v-model="estoque.coca"
-          @input="updateCoca"
-        />
-        <button
-          class="px-2 py-1 border border-gray-400 rounded-r"
-          @click="increaseCocaCola"
-        >
-          +
-        </button>
-      </div>
-      <label class="mt-4 block text-black font-bold mb-2">Cerveja (R$12)</label>
-      <div class="flex items-center">
-        <button
-          class="px-2 py-1 border border-gray-400 rounded-l"
-          @click="decreaseBeer"
-        >
-          -
-        </button>
-
-        <input
-          type="number"
-          class="px-2 py-1 border border-gray-400 text-center flex-1"
-          v-model="estoque.cerveja"
-          @input="updateBeer"
-        />
-        <button
-          class="px-2 py-1 border border-gray-400 rounded-r"
-          @click="increaseBeer"
-        >
-          +
-        </button>
-      </div>
-      <label class="mt-4 block text-black font-bold mb-2"
-        >Hamburger (R$15)</label
+<template>
+  <div class="p-4">
+    <form @submit.prevent="adicionarEstoque" class="mb-4">
+      <label for="produto" class="block mb-2 font-bold">Produto</label>
+      <select
+        v-model="produtoSelecionado"
+        id="produto"
+        class="w-full py-2 px-3 rounded border"
       >
-      <div class="flex items-center">
-        <button
-          class="px-2 py-1 border border-gray-400 rounded-l"
-          @click="decreaseHam"
+        <option
+          v-for="produto in produtos"
+          :key="produto.id"
+          :value="produto.id"
         >
-          -
-        </button>
-        <input
-          type="number"
-          class="px-2 py-1 border border-gray-400 text-center flex-1"
-          v-model="estoque.hamburguer"
-          @input="updateHam"
-        />
-        <button
-          class="px-2 py-1 border border-gray-400 rounded-r"
-          @click="increaseHam"
-        >
-          +
-        </button>
-      </div>
+          {{ produto.nome }}
+        </option>
+      </select>
+      <label for="quantidade" class="block mt-4 mb-2 font-bold"
+        >Quantidade</label
+      >
+      <input
+        type="number"
+        v-model.number="quantidade"
+        id="quantidade"
+        class="w-full py-2 px-3 rounded border"
+      />
+      <div class="m-3"></div>
       <button
-        class="mt-4 block w-full rounded-lg bg-blue-600 hover:bg-blue-700 px-5 py-3 text-sm font-medium text-white"
-        @click="atualizarEstoque"
+        type="submit"
+        class="text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
       >
-        Atualizar estoque
+        Adicionar Estoque
       </button>
+    </form>
+
+    <div>
+      <h2 class="font-bold text-lg mb-2">Estoque</h2>
+      <table class="table-auto">
+        <thead>
+          <tr>
+            <th class="px-4 py-2">Produto</th>
+            <th class="px-4 py-2">Quantidade</th>
+            <th class="px-4 py-2">Editar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="estoque in estoques" :key="estoque.id" class="border">
+            <td class="px-4 py-2">{{ estoque.produto.nome }}</td>
+            <td class="px-4 py-2">{{ estoque.quantidade }}</td>
+            <td class="px-4 py-2">
+              <button
+                @click="editarEstoque(estoque)"
+                class="text-amber-700 hover:text-white border border-amber-700 hover:bg-amber-800 focus:ring-4 focus:outline-none focus:ring-amber-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+              >
+                Editar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div v-if="editando" class="mt-4">
+      <h3 class="font-bold text-lg mb-2">Editar Estoque</h3>
+      <form @submit.prevent="salvarEdicao">
+        <label for="produto-editar" class="block mb-2 font-bold">Produto</label>
+        <select
+          v-model="produtoSelecionado"
+          id="produto-editar"
+          class="w-full py-2 px-3 rounded border"
+        >
+          <option
+            v-for="produto in produtos"
+            :key="produto.id"
+            :value="produto.id"
+          >
+            {{ produto.nome }}
+          </option>
+        </select>
+        <label for="quantidade-editar" class="block mt-4 mb-2"
+          >Quantidade</label
+        >
+        <input
+          type="number"
+          v-model.number="quantidade"
+          id="quantidade-editar"
+          class="w-full py-2 px-3 rounded border"
+        />
+        <div class="flex justify-end mt-4">
+          <button
+            type="button"
+            @click="cancelarEdicao"
+            class="mr-2 bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Cancelar
+          </button>
+          <button
+            type="submit"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Salvar
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </template>
@@ -88,168 +112,91 @@ import axios from "axios";
 export default {
   data() {
     return {
-      estoque: {
-        coca: 0,
-        cerveja: 0,
-        hamburguer: 0,
-      },
-    };
-  },
-  methods: {
-    atualizarEstoque() {
-      axios
-        .get("http://localhost:8000/estoque/1")
-        .then((response) => {
-          const estoqueAtual = response.data;
-          const novoEstoque = {
-            coca: this.estoque.coca + estoqueAtual.coca,
-            cerveja: this.estoque.cerveja + estoqueAtual.cerveja,
-            hamburguer: this.estoque.hamburguer + estoqueAtual.hamburguer,
-          };
-
-          if (
-            this.estoque.coca > 0 ||
-            this.estoque.cerveja > 0 ||
-            this.estoque.hamburguer > 0
-          ) {
-            axios
-              .patch("http://localhost:8000/patchEstoque/", novoEstoque)
-              .then((response) => {
-                console.log(response);
-              })
-              .catch((error) => {
-                console.log(error);
-              });
-            setTimeout(() => {
-              alert("Estoque atualizado com sucesso!");
-              window.location.reload();
-            }, 300);
-          } else {
-            alert("Não é possível atualizar o estoque com valores zerados.");
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
-    updateCoca() {
-      this.estoque.coca = this.estoque.coca < 0 ? 0 : this.estoque.coca;
-      window.localStorage.setItem("coca", this.estoque.coca);
-    },
-    updateBeer() {
-      this.estoque.cerveja =
-        this.estoque.cerveja < 0 ? 0 : this.estoque.cerveja;
-      window.localStorage.setItem("cerveja", this.estoque.cerveja);
-    },
-    updateHam() {
-      this.estoque.hamburguer =
-        this.estoque.hamburguer < 0 ? 0 : this.estoque.hamburguer;
-      window.localStorage.setItem("hamburguer", this.estoque.hamburguer);
-    },
-    increaseCocaCola() {
-      this.estoque.coca++;
-      windows.localStorage.setItem("coca", this.estoque.coca);
-    },
-    decreaseCocaCola() {
-      this.estoque.coca--;
-      this.updateCoca();
-      windows.localStorage.setItem("coca", this.estoque.coca);
-    },
-    increaseBeer() {
-      this.estoque.cerveja++;
-      windows.localStorage.setItem("cerveja", this.estoque.cerveja);
-    },
-    decreaseBeer() {
-      this.estoque.cerveja--;
-      this.updateBeer();
-      windows.localStorage.setItem("cerveja", this.estoque.cerveja);
-    },
-    increaseHam() {
-      this.estoque.hamburguer++;
-      windows.localStorage.setItem("hamburguer", this.estoque.hamburguer);
-    },
-    decreaseHam() {
-      this.estoque.hamburguer--;
-      this.updateHam();
-      windows.localStorage.setItem("hamburguer", this.estoque.hamburguer);
-    },
-  },
-};
-</script> -->
-
-<template>
-  <div class="p-4">
-    <label class="block font-bold mb-2" for="produto">Produto:</label>
-    <select
-      class="border border-gray-400 p-2 mb-4"
-      id="produto"
-      v-model="selectedProduto"
-    >
-      <option v-for="produto in produtos" :key="produto.id" :value="produto.id">
-        {{ produto.nome }}
-      </option>
-    </select>
-
-    <label class="block font-bold mb-2" for="quantidade">Quantidade:</label>
-    <input
-      class="border border-gray-400 p-2 mb-4"
-      type="number"
-      id="quantidade"
-      v-model="quantidade"
-    />
-
-    <button
-      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-      @click="adicionarPedido"
-    >
-      Adicionar Pedido
-    </button>
-  </div>
-</template>
-
-<script>
-import axios from "axios";
-
-export default {
-  data() {
-    return {
-      selectedProduto: null,
-      quantidade: null,
       produtos: [],
+      estoques: [],
+      produtoSelecionado: null,
+      quantidade: null,
+      estoqueSelecionado: null,
+      editando: false,
     };
   },
+  mounted() {
+    this.carregarProdutos();
+    this.carregarEstoques();
+  },
   methods: {
-    adicionarPedido() {
+    carregarProdutos() {
       axios
-        .post("http://localhost:8000/pedido/", {
-          produto: this.selectedProduto,
-          quantidade: this.quantidade,
-        })
+        .get("http://localhost:8000/produto/")
         .then((response) => {
-          this.atualizarEstoque();
-          this.selectedProduto = null;
-          this.quantidade = null;
-          alert("Pedido adicionado com sucesso!");
+          this.produtos = response.data;
         })
         .catch((error) => {
           console.error(error);
-          alert("Ocorreu um erro ao adicionar o pedido.");
         });
     },
-    atualizarEstoque() {
+    carregarEstoques() {
       axios
         .get("http://localhost:8000/estoque/")
         .then((response) => {
-          this.produtos = response.data.map((estoque) => estoque.produto);
+          this.estoques = response.data;
         })
         .catch((error) => {
           console.error(error);
-          alert("Ocorreu um erro ao atualizar o estoque.");
         });
     },
-  },
-  mounted() {
-    this.atualizarEstoque();
+    adicionarEstoque() {
+      const novoEstoque = {
+        produto: this.produtoSelecionado,
+        quantidade: this.quantidade,
+      };
+      axios
+        .post("http://localhost:8000/estoque/", novoEstoque)
+        .then((response) => {
+          this.estoques.push(response.data);
+          this.produtoSelecionado = null;
+          this.quantidade = null;
+          window.location.reload();
+        })
+        .catch((error) => {
+          console.error(error.response.data);
+        });
+    },
+    editarEstoque(estoque) {
+      this.estoqueSelecionado = estoque;
+      this.produtoSelecionado = estoque.produto.id;
+      this.quantidade = estoque.quantidade;
+      this.editando = true;
+    },
+    cancelarEdicao() {
+      this.estoqueSelecionado = null;
+      this.produtoSelecionado = null;
+      this.quantidade = null;
+      this.editando = false;
+    },
+    salvarEdicao() {
+      const estoqueEditado = {
+        id: this.estoqueSelecionado.id,
+        produto: this.produtoSelecionado,
+        quantidade: this.quantidade,
+      };
+      axios
+        .put(
+          `http://localhost:8000/estoque/${estoqueEditado.id}/`,
+          estoqueEditado
+        )
+        .then((response) => {
+          const index = this.estoques.findIndex(
+            (estoque) => estoque.id === response.data.id
+          );
+          this.estoques.splice(index, 1, response.data);
+          this.cancelarEdicao();
+          window.location.reload();
+        })
+        .catch((error) => {
+          console.error(error.response.data);
+        });
+    },
   },
 };
 </script>
